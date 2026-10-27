@@ -24,7 +24,7 @@ The web app is a JavaScript port of the same parsing logic as the Python script 
 4. Pick your default branch and the **`/docs`** folder, then save.
 5. GitHub will publish the site at `https://<you>.github.io/<repo>/` within a minute or two.
 
-**A note on the ESV API key:** `templates/presentation.html` (and its copy at `docs/presentation-template.html`) has an ESV Bible API key hardcoded in it for the in-app Bible reader. GitHub Pages repos are public by default, so once you push, that key becomes visible to anyone who views the page source or browses the repo. If that's not something you want publicly exposed, either keep this repository private, or remove/replace the key (`ESV_API_KEY` near the top of the app script in `presentation.html`) before publishing — the reader falls back to other translations without it.
+**A note on the ESV API key:** decks don't ship with one. Open any generated deck, click the ⚙️ **Settings** button, and paste in your own free key from [api.esv.org/account](https://api.esv.org/account) — it's saved to that browser's local storage, never written into the file itself. Without a key, the Bible reader falls back to free public-domain translations (KJV, WEB, and others).
 
 ## Option B — Python command line
 
@@ -47,6 +47,22 @@ python app.py
 Then open `http://127.0.0.1:5000`, upload a PDF, and download the generated deck (or view the live preview on the result page). Each upload gets its own folder under `server/generated/` (not committed to git — see `server/.gitignore`); clean that folder out periodically since nothing deletes old runs automatically.
 
 This needs a real Python host to put it on the web (GitHub Pages only serves static files) — any host that runs a Flask app works (Render, Railway, PythonAnywhere, Fly.io, a VPS, etc.). The steps above are for running it locally.
+
+### Deploying to Render (free tier)
+
+1. Push this repository to GitHub (see above).
+2. Create a free account at [render.com](https://render.com) and connect your GitHub account.
+3. **New → Web Service**, pick this repository.
+4. Set:
+   - **Root Directory**: `server`
+   - **Runtime**: Python 3
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `gunicorn app:app`
+   - **Instance Type**: Free
+5. Create the service. Render builds and deploys automatically, and redeploys on every push to your default branch.
+6. Your app is live at the `https://<your-service>.onrender.com` URL Render gives you.
+
+Notes: the free tier spins down after periods of inactivity (the first request after a while takes ~30–60s to wake it up), has limited memory (watch out with very large PDFs), and its filesystem is ephemeral — `server/generated/` output doesn't persist across restarts/redeploys, which is expected since it's meant to be downloaded immediately, not stored long-term.
 
 ## Project layout
 
