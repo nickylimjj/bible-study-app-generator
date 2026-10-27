@@ -1,0 +1,4260 @@
+<!-- Bible Study Deck template · version 1.0.0 · https://github.com/ (MIT License) -->
+<!DOCTYPE html>
+<html lang="en" data-theme="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bible Study Deck</title>
+<style>
+  /* ========== RESET & BASE ========== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 18px; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0f0f12;
+    color: #e8e6e3;
+    min-height: 100vh;
+    overflow: hidden;
+    transition: background 0.4s ease, color 0.4s ease;
+  }
+
+  /* ===================================================================
+     THEMES — each theme changes more than just colours:
+     * font-family, border-radius, heading-style, shadow depth, 
+     * slide-padding, content alignment, accent treatment
+     =================================================================== */
+  :root {
+    /* ── Base fallback: mirrors Dawn, the actual default theme ── */
+    --font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    --font-ui: 'Segoe UI', system-ui, sans-serif;
+    --border-radius: 14px;
+    --border-radius-lg: 20px;
+    --border-radius-pill: 24px;
+    --slide-padding: 1.5rem 2rem;
+    --content-align: left;
+    --heading-align: left;
+    --heading-style: normal;
+    --heading-decoration: none;
+    --shadow-depth: 0 8px 24px rgba(0,0,0,0.08);
+    --accent-underline: 2px solid #b8860b;
+    --bg: #f5f3ef;
+    --bg-scenic:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 360' preserveAspectRatio='none'%3E%3Cpath fill='%23eee0c4' d='M0,220C240,160,480,260,720,215S1180,235,1440,180V360H0Z'/%3E%3Cpath fill='%23e2d0ac' d='M0,285C300,235,600,305,900,270S1280,300,1440,275V360H0Z'/%3E%3Cpath fill='%23d5c093' d='M0,330C360,305,720,345,1080,322S1360,335,1440,328V360H0Z'/%3E%3C/svg%3E") bottom / 100% 30% no-repeat,
+      radial-gradient(circle at 50% 72%, rgba(255, 196, 120, 0.55) 0%, rgba(255, 176, 105, 0.2) 8%, rgba(255, 160, 90, 0.08) 18%, transparent 32%),
+      linear-gradient(180deg, #fbf6ec 0%, #f7ecd8 55%, #f2debe 100%);
+    --bg-card: #ffffff;
+    --bg-card-hover: #f0ede8;
+    --text: #1a1a1a;
+    --text-muted: #6b6b6b;
+    --accent: #b8860b;
+    --accent-glow: rgba(184, 134, 11, 0.1);
+    --border: #d4d0c8;
+    --toc-bg: #ffffff;
+    --slide-bg: linear-gradient(145deg, rgba(255,255,255,0.92) 0%, rgba(248,246,242,0.88) 100%);
+    --slide-bg-commentary: linear-gradient(145deg, rgba(250,246,240,0.94) 0%, rgba(245,240,234,0.9) 100%);
+    --question-badge: #b8860b;
+    --commentary-badge: #2563eb;
+    --bible-read-badge: #7c3aed;
+    --section-badge-gs: #2563eb;
+    --section-badge-oi: #b8860b;
+    --section-badge-io: #16a34a;
+    --implications-bg: linear-gradient(145deg, rgba(240,250,240,0.94) 0%, rgba(234,245,234,0.9) 100%);
+    --sidebar-bg: #ece8e0;
+    --sidebar-item: #d4d0c8;
+    --sidebar-item-active: #b8860b;
+    --sidebar-width: 170px;
+    --nav-btn-bg: #ffffff;
+    --nav-btn-color: #6b6b6b;
+    --nav-btn-hover-bg: #b8860b;
+    --nav-btn-hover-color: #fff;
+    --overlay-bg: rgba(255,255,255,0.92);
+    --badge-font-size: 0.75rem;
+  }
+
+  [data-theme="dawn"] {
+    /* ── Dawn: light warm, sans-serif, clean, rounded ── */
+    --font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    --font-ui: 'Segoe UI', system-ui, sans-serif;
+    --border-radius: 14px;
+    --border-radius-lg: 20px;
+    --border-radius-pill: 24px;
+    --slide-padding: 1.5rem 2rem;
+    --content-align: left;
+    --heading-align: left;
+    --heading-style: normal;
+    --heading-decoration: none;
+    --shadow-depth: 0 8px 24px rgba(0,0,0,0.08);
+    --accent-underline: 2px solid #b8860b;
+    --bg: #f5f3ef;
+    --bg-scenic:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 360' preserveAspectRatio='none'%3E%3Cpath fill='%23eee0c4' d='M0,220C240,160,480,260,720,215S1180,235,1440,180V360H0Z'/%3E%3Cpath fill='%23e2d0ac' d='M0,285C300,235,600,305,900,270S1280,300,1440,275V360H0Z'/%3E%3Cpath fill='%23d5c093' d='M0,330C360,305,720,345,1080,322S1360,335,1440,328V360H0Z'/%3E%3C/svg%3E") bottom / 100% 30% no-repeat,
+      radial-gradient(circle at 50% 72%, rgba(255, 196, 120, 0.55) 0%, rgba(255, 176, 105, 0.2) 8%, rgba(255, 160, 90, 0.08) 18%, transparent 32%),
+      linear-gradient(180deg, #fbf6ec 0%, #f7ecd8 55%, #f2debe 100%);
+    --bg-card: #ffffff;
+    --bg-card-hover: #f0ede8;
+    --text: #1a1a1a;
+    --text-muted: #6b6b6b;
+    --accent: #b8860b;
+    --accent-glow: rgba(184, 134, 11, 0.1);
+    --border: #d4d0c8;
+    --toc-bg: #ffffff;
+    --slide-bg: linear-gradient(145deg, rgba(255,255,255,0.92) 0%, rgba(248,246,242,0.88) 100%);
+    --slide-bg-commentary: linear-gradient(145deg, rgba(250,246,240,0.94) 0%, rgba(245,240,234,0.9) 100%);
+    --question-badge: #b8860b;
+    --commentary-badge: #2563eb;
+    --bible-read-badge: #7c3aed;
+    --section-badge-gs: #2563eb;
+    --section-badge-oi: #b8860b;
+    --section-badge-io: #16a34a;
+    --implications-bg: linear-gradient(145deg, rgba(240,250,240,0.94) 0%, rgba(234,245,234,0.9) 100%);
+    --sidebar-bg: #ece8e0;
+    --sidebar-item: #d4d0c8;
+    --sidebar-item-active: #b8860b;
+    --sidebar-width: 170px;
+    --nav-btn-bg: #ffffff;
+    --nav-btn-color: #6b6b6b;
+    --nav-btn-hover-bg: #b8860b;
+    --nav-btn-hover-color: #fff;
+    --overlay-bg: rgba(255,255,255,0.92);
+    --badge-font-size: 0.75rem;
+  }
+
+  [data-theme="nord"] {
+    /* ── Nord: blue-gray, rounded, modern, spacious ── */
+    --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    --font-ui: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    --border-radius: 18px;
+    --border-radius-lg: 24px;
+    --border-radius-pill: 28px;
+    --slide-padding: 1.5rem 2rem;
+    --content-align: left;
+    --heading-align: center;
+    --heading-style: normal;
+    --heading-decoration: none;
+    --shadow-depth: 0 12px 40px rgba(0,0,0,0.4);
+    --accent-underline: none;
+    --bg: #2e3440;
+    --bg-scenic:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'%3E%3Cpath fill='%232b303c' d='M0,190L200,110L400,200L620,90L860,210L1080,120L1290,215L1440,160V320H0Z'/%3E%3Cpath fill='%23262b36' d='M0,240L160,145L320,235L520,120L720,250L920,150L1120,240L1300,170L1440,235V320H0Z'/%3E%3Cpath fill='%23dfe5ef' opacity='.35' d='M142,156L160,145L178,156L170,163L150,163ZM502,131L520,120L538,131L530,138L510,138ZM902,161L920,150L938,161L930,168L910,168ZM1282,181L1300,170L1318,181L1310,188L1290,188Z'/%3E%3C/svg%3E") bottom / 100% 28% no-repeat,
+      linear-gradient(115deg, transparent 28%, rgba(143, 188, 187, 0.12) 40%, rgba(163, 190, 140, 0.15) 50%, rgba(136, 192, 208, 0.12) 60%, transparent 72%),
+      radial-gradient(ellipse at 70% -5%, rgba(136, 192, 208, 0.14) 0%, transparent 50%),
+      linear-gradient(180deg, #232833 0%, #2e3440 65%, #323a4b 100%);
+    --bg-card: #3b4252;
+    --bg-card-hover: #434c5e;
+    --text: #eceff4;
+    --text-muted: #d8dee9;
+    --accent: #88c0d0;
+    --accent-glow: rgba(136, 192, 208, 0.15);
+    --border: #4c566a;
+    --toc-bg: #2e3440;
+    --slide-bg: linear-gradient(145deg, rgba(59,66,82,0.88) 0%, rgba(46,52,64,0.93) 100%);
+    --slide-bg-commentary: linear-gradient(145deg, rgba(59,66,82,0.9) 0%, rgba(52,58,74,0.93) 100%);
+    --question-badge: #81a1c1;
+    --commentary-badge: #5e81ac;
+    --bible-read-badge: #88c0d0;
+    --section-badge-gs: #5e81ac;
+    --section-badge-oi: #81a1c1;
+    --section-badge-io: #a3be8c;
+    --implications-bg: linear-gradient(145deg, rgba(52,58,74,0.9) 0%, rgba(46,52,64,0.93) 100%);
+    --sidebar-bg: #252933;
+    --sidebar-item: #4c566a;
+    --sidebar-item-active: #88c0d0;
+    --sidebar-width: 170px;
+    --nav-btn-bg: #3b4252;
+    --nav-btn-color: #d8dee9;
+    --nav-btn-hover-bg: #88c0d0;
+    --nav-btn-hover-color: #2e3440;
+    --overlay-bg: rgba(46,52,64,0.92);
+    --badge-font-size: 0.75rem;
+  }
+
+  [data-theme="sakura"] {
+    /* ── Sakura: light warm pink, soft, elegant, rounded ── */
+    --font-family: 'Georgia', 'Palatino', 'Times New Roman', serif;
+    --font-ui: 'Segoe UI', system-ui, sans-serif;
+    --border-radius: 16px;
+    --border-radius-lg: 22px;
+    --border-radius-pill: 26px;
+    --slide-padding: 1.5rem 2rem;
+    --content-align: left;
+    --heading-align: center;
+    --heading-style: normal;
+    --heading-decoration: none;
+    --shadow-depth: 0 8px 28px rgba(0,0,0,0.07);
+    --accent-underline: 1px solid #d4818c;
+    --bg: #fdf5f6;
+    --bg-scenic:
+      radial-gradient(circle at 14% 6%, rgba(228, 150, 160, 0.2) 0%, transparent 28%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='380' height='300' viewBox='0 0 380 300'%3E%3Cg fill='%23e39aa8'%3E%3Cellipse cx='40' cy='36' rx='5' ry='3' opacity='.4' transform='rotate(24 40 36)'/%3E%3Cellipse cx='120' cy='90' rx='4' ry='2.5' opacity='.3' transform='rotate(-18 120 90)'/%3E%3Cellipse cx='210' cy='40' rx='5.5' ry='3.2' opacity='.45' transform='rotate(40 210 40)'/%3E%3Cellipse cx='300' cy='110' rx='4' ry='2.4' opacity='.3' transform='rotate(-30 300 110)'/%3E%3Cellipse cx='70' cy='170' rx='4.5' ry='2.8' opacity='.35' transform='rotate(12 70 170)'/%3E%3Cellipse cx='250' cy='200' rx='5' ry='3' opacity='.4' transform='rotate(-42 250 200)'/%3E%3Cellipse cx='340' cy='250' rx='4' ry='2.5' opacity='.3' transform='rotate(20 340 250)'/%3E%3Cellipse cx='150' cy='270' rx='4.5' ry='2.6' opacity='.35' transform='rotate(-12 150 270)'/%3E%3C/g%3E%3C/svg%3E") top left / 380px 300px repeat,
+      linear-gradient(180deg, #fdf6f7 0%, #fbecee 100%);
+    --bg-card: #ffffff;
+    --bg-card-hover: #fceeef;
+    --text: #2d1b1e;
+    --text-muted: #8b6f73;
+    --accent: #d4818c;
+    --accent-glow: rgba(212, 129, 140, 0.1);
+    --border: #e8d0d4;
+    --toc-bg: #fdf5f6;
+    --slide-bg: linear-gradient(145deg, rgba(255,255,255,0.92) 0%, rgba(253,245,246,0.88) 100%);
+    --slide-bg-commentary: linear-gradient(145deg, rgba(253,245,246,0.94) 0%, rgba(252,238,239,0.9) 100%);
+    --question-badge: #d4818c;
+    --commentary-badge: #8b7ec8;
+    --bible-read-badge: #c4849e;
+    --section-badge-gs: #8b7ec8;
+    --section-badge-oi: #d4818c;
+    --section-badge-io: #6baf8d;
+    --implications-bg: linear-gradient(145deg, rgba(245,240,250,0.94) 0%, rgba(240,234,245,0.9) 100%);
+    --sidebar-bg: #fceeef;
+    --sidebar-item: #e8d0d4;
+    --sidebar-item-active: #d4818c;
+    --sidebar-width: 170px;
+    --nav-btn-bg: #ffffff;
+    --nav-btn-color: #8b6f73;
+    --nav-btn-hover-bg: #d4818c;
+    --nav-btn-hover-color: #fff;
+    --overlay-bg: rgba(253, 245, 246, 0.92);
+    --badge-font-size: 0.75rem;
+  }
+
+  [data-theme="olive"] {
+    /* ── Olive: light sage, Mount-of-Olives hillside, morning sun, humanist serif ── */
+    --font-family: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+    --font-ui: 'Seravek', 'Gill Sans', 'Segoe UI', system-ui, sans-serif;
+    --border-radius: 14px;
+    --border-radius-lg: 22px;
+    --border-radius-pill: 26px;
+    --slide-padding: 1.5rem 2rem;
+    --content-align: left;
+    --heading-align: center;
+    --heading-style: normal;
+    --heading-decoration: none;
+    --shadow-depth: 0 10px 30px rgba(70, 90, 40, 0.12);
+    --accent-underline: 1px solid #5f7a3d;
+    --bg: #f4f6ec;
+    --bg-scenic:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 400' preserveAspectRatio='none'%3E%3Cpath fill='%23e2e9d0' d='M0,258C220,196,470,298,720,252S1210,272,1440,212V400H0Z'/%3E%3Cpath fill='%23d0dcb6' d='M0,314C280,262,560,330,860,296S1260,330,1440,302V400H0Z'/%3E%3Cpath fill='%23bfcf9f' d='M0,360C360,332,720,376,1080,352S1352,366,1440,356V400H0Z'/%3E%3C/svg%3E") bottom / 100% 34% no-repeat,
+      radial-gradient(circle at 82% 10%, rgba(224, 201, 127, 0.35) 0%, rgba(224, 201, 127, 0.12) 10%, transparent 26%),
+      linear-gradient(180deg, #f8f9f3 0%, #eef3e1 100%);
+    --bg-card: #ffffff;
+    --bg-card-hover: #eef2e0;
+    --text: #23281b;
+    --text-muted: #6f7a5e;
+    --accent: #5f7a3d;
+    --accent-glow: rgba(95, 122, 61, 0.12);
+    --border: #d8dfc6;
+    --toc-bg: #f4f6ec;
+    --slide-bg: linear-gradient(150deg, rgba(255,255,255,0.92) 0%, rgba(248,250,240,0.88) 100%);
+    --slide-bg-commentary: linear-gradient(150deg, rgba(246,246,234,0.94) 0%, rgba(239,242,223,0.9) 100%);
+    --question-badge: #5f7a3d;
+    --commentary-badge: #3d6a7a;
+    --bible-read-badge: #7a5da0;
+    --section-badge-gs: #3d6a7a;
+    --section-badge-oi: #5f7a3d;
+    --section-badge-io: #2f8f66;
+    --implications-bg: linear-gradient(145deg, rgba(242,246,236,0.94) 0%, rgba(233,240,221,0.9) 100%);
+    --sidebar-bg: #eaeedd;
+    --sidebar-item: #d8dfc6;
+    --sidebar-item-active: #5f7a3d;
+    --sidebar-width: 170px;
+    --nav-btn-bg: #ffffff;
+    --nav-btn-color: #6f7a5e;
+    --nav-btn-hover-bg: #5f7a3d;
+    --nav-btn-hover-color: #fff;
+    --overlay-bg: rgba(244, 246, 236, 0.93);
+    --badge-font-size: 0.75rem;
+  }
+
+  [data-theme="indigo"] {
+    /* ── Indigo: deep night sky, soft hills, warm candlelit moon, elegant serif ── */
+    --font-family: 'EB Garamond', 'Garamond', 'Georgia', 'Times New Roman', serif;
+    --font-ui: 'Segoe UI', system-ui, sans-serif;
+    --border-radius: 14px;
+    --border-radius-lg: 20px;
+    --border-radius-pill: 26px;
+    --slide-padding: 1.5rem 2rem;
+    --content-align: left;
+    --heading-align: center;
+    --heading-style: normal;
+    --heading-decoration: none;
+    --shadow-depth: 0 16px 46px rgba(0, 0, 0, 0.55);
+    --accent-underline: none;
+    --bg: #0e0b22;
+    --bg-scenic:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 300' preserveAspectRatio='none'%3E%3Cpath fill='%23201a3d' d='M0,180C240,120,480,210,720,160S1200,120,1440,170V300H0Z'/%3E%3Cpath fill='%23140f2c' d='M0,230C280,190,560,250,860,220S1300,250,1440,235V300H0Z'/%3E%3C/svg%3E") bottom / 100% 30% no-repeat,
+      radial-gradient(circle at 78% 15%, rgba(230, 200, 140, 0.55) 0%, rgba(217, 170, 84, 0.18) 6%, transparent 18%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Cg fill='%23c7bce8'%3E%3Ccircle cx='30' cy='40' r='1.1' opacity='.65'/%3E%3Ccircle cx='100' cy='110' r='.8' opacity='.45'/%3E%3Ccircle cx='160' cy='35' r='1.2' opacity='.7'/%3E%3Ccircle cx='220' cy='95' r='.7' opacity='.4'/%3E%3Ccircle cx='280' cy='150' r='1' opacity='.55'/%3E%3Ccircle cx='340' cy='55' r='1.1' opacity='.65'/%3E%3Ccircle cx='70' cy='190' r='.8' opacity='.45'/%3E%3Ccircle cx='310' cy='220' r='.9' opacity='.5'/%3E%3Ccircle cx='180' cy='250' r='.6' opacity='.35'/%3E%3C/g%3E%3C/svg%3E") top left / 400px 320px repeat,
+      linear-gradient(180deg, #080617 0%, #0e0b22 55%, #161032 100%);
+    --bg-card: #1b1640;
+    --bg-card-hover: #241d52;
+    --text: #ece8f7;
+    --text-muted: #a79ccb;
+    --accent: #d9a954;
+    --accent-glow: rgba(217, 169, 84, 0.15);
+    --border: #2e2659;
+    --toc-bg: #0e0b22;
+    --slide-bg: linear-gradient(150deg, rgba(27,22,64,0.88) 0%, rgba(17,13,40,0.93) 100%);
+    --slide-bg-commentary: linear-gradient(150deg, rgba(32,26,70,0.9) 0%, rgba(20,16,46,0.93) 100%);
+    --question-badge: #d9a954;
+    --commentary-badge: #8f7bd9;
+    --bible-read-badge: #9b7fd4;
+    --section-badge-gs: #8f7bd9;
+    --section-badge-oi: #d9a954;
+    --section-badge-io: #6fae8a;
+    --implications-bg: linear-gradient(145deg, rgba(20,34,32,0.9) 0%, rgba(14,24,24,0.93) 100%);
+    --sidebar-bg: #0a0819;
+    --sidebar-item: #2e2659;
+    --sidebar-item-active: #d9a954;
+    --sidebar-width: 170px;
+    --nav-btn-bg: #1b1640;
+    --nav-btn-color: #a79ccb;
+    --nav-btn-hover-bg: #d9a954;
+    --nav-btn-hover-color: #1b1640;
+    --overlay-bg: rgba(14, 11, 34, 0.92);
+    --badge-font-size: 0.75rem;
+  }
+
+  [data-theme="terracotta"] {
+    /* ── Terracotta: sun-warmed clay village, adobe rooftops, humanist serif ── */
+    --font-family: 'Big Caslon', 'Garamond', 'Georgia', 'Times New Roman', serif;
+    --font-ui: 'Gill Sans', 'Segoe UI', system-ui, sans-serif;
+    --border-radius: 10px;
+    --border-radius-lg: 16px;
+    --border-radius-pill: 24px;
+    --slide-padding: 1.5rem 2rem;
+    --content-align: left;
+    --heading-align: center;
+    --heading-style: normal;
+    --heading-decoration: none;
+    --shadow-depth: 0 10px 30px rgba(120, 60, 30, 0.14);
+    --accent-underline: 1px solid #b8582f;
+    --bg: #fbf1e4;
+    --bg-scenic:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'%3E%3Cpath fill='%23e7c9a6' d='M0,230L60,180A40,40 0 0,1 140,180L140,230Z'/%3E%3Cpath fill='%23dcb78e' d='M200,250L200,170L260,120L320,170L320,250Z'/%3E%3Cpath fill='%23e7c9a6' d='M380,240L440,190A36,36 0 0,1 512,190L512,240Z'/%3E%3Cpath fill='%23d3ab80' d='M600,250L600,160L700,100L800,160L800,250Z'/%3E%3Cpath fill='%23dcb78e' d='M880,240L930,185A34,34 0 0,1 998,185L998,240Z'/%3E%3Cpath fill='%23e7c9a6' d='M1080,245L1080,175L1150,130L1220,175L1220,245Z'/%3E%3Cpath fill='%23d3ab80' d='M1300,240L1340,195A28,28 0 0,1 1396,195L1396,240Z'/%3E%3Cpath fill='%23c99a6e' d='M0,250H1440V320H0Z'/%3E%3C/svg%3E") bottom / 100% 36% no-repeat,
+      radial-gradient(circle at 80% 10%, rgba(255, 170, 100, 0.4) 0%, rgba(255, 150, 80, 0.14) 10%, transparent 26%),
+      linear-gradient(180deg, #fdf6ec 0%, #f7e3c9 60%, #f0d2ae 100%);
+    --bg-card: #fffdfa;
+    --bg-card-hover: #f6e9d8;
+    --text: #3d281b;
+    --text-muted: #8a6a55;
+    --accent: #b8582f;
+    --accent-glow: rgba(184, 88, 47, 0.12);
+    --border: #e6cdb1;
+    --toc-bg: #fbf1e4;
+    --slide-bg: linear-gradient(150deg, rgba(255,255,255,0.93) 0%, rgba(250,240,227,0.88) 100%);
+    --slide-bg-commentary: linear-gradient(150deg, rgba(247,233,214,0.94) 0%, rgba(240,222,198,0.9) 100%);
+    --question-badge: #b8582f;
+    --commentary-badge: #6e7f3d;
+    --bible-read-badge: #9a5a7a;
+    --section-badge-gs: #6e7f3d;
+    --section-badge-oi: #b8582f;
+    --section-badge-io: #3f8f5e;
+    --implications-bg: linear-gradient(145deg, rgba(240,246,232,0.94) 0%, rgba(232,240,220,0.9) 100%);
+    --sidebar-bg: #f1e0c8;
+    --sidebar-item: #e6cdb1;
+    --sidebar-item-active: #b8582f;
+    --sidebar-width: 170px;
+    --nav-btn-bg: #fffdfa;
+    --nav-btn-color: #8a6a55;
+    --nav-btn-hover-bg: #b8582f;
+    --nav-btn-hover-color: #fff;
+    --overlay-bg: rgba(251, 241, 228, 0.93);
+    --badge-font-size: 0.75rem;
+  }
+
+  [data-theme="juniper"] {
+    /* ── Juniper: moonlit evergreen grove, cool dark green, modern sans ── */
+    --font-family: 'Avenir Next', 'Century Gothic', 'Segoe UI', system-ui, sans-serif;
+    --font-ui: 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+    --border-radius: 16px;
+    --border-radius-lg: 22px;
+    --border-radius-pill: 28px;
+    --slide-padding: 1.5rem 2rem;
+    --content-align: left;
+    --heading-align: center;
+    --heading-style: normal;
+    --heading-decoration: none;
+    --shadow-depth: 0 14px 42px rgba(0, 0, 0, 0.5);
+    --accent-underline: none;
+    --bg: #0d1a14;
+    --bg-scenic:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 300' preserveAspectRatio='none'%3E%3Cpath fill='%2314251c' d='M0,60L40,140L10,140L60,220L20,220L90,300H0Z'/%3E%3Cpath fill='%23101f18' d='M160,90L195,160L170,160L210,230L178,230L240,300H140Z'/%3E%3Cpath fill='%2314251c' d='M340,50L380,140L348,140L400,225L365,225L430,300H330Z'/%3E%3Cpath fill='%23101f18' d='M560,85L598,160L572,160L616,230L584,230L650,300H540Z'/%3E%3Cpath fill='%2314251c' d='M800,55L842,145L810,145L862,228L828,228L892,300H780Z'/%3E%3Cpath fill='%23101f18' d='M1040,90L1078,160L1052,160L1096,230L1064,230L1130,300H1020Z'/%3E%3Cpath fill='%2314251c' d='M1240,60L1282,145L1250,145L1300,225L1266,225L1332,300H1220Z'/%3E%3Cpath fill='%230b1712' d='M0,260C360,235,720,275,1080,250S1360,265,1440,258V300H0Z'/%3E%3C/svg%3E") bottom / 100% 34% no-repeat,
+      radial-gradient(circle at 24% 12%, rgba(235, 225, 190, 0.5) 0%, rgba(212, 195, 138, 0.16) 7%, transparent 20%),
+      linear-gradient(180deg, #081109 0%, #0d1a14 55%, #122319 100%);
+    --bg-card: #152a1f;
+    --bg-card-hover: #1c3527;
+    --text: #e7f0e3;
+    --text-muted: #91a993;
+    --accent: #d4c38a;
+    --accent-glow: rgba(212, 195, 138, 0.14);
+    --border: #26402f;
+    --toc-bg: #0d1a14;
+    --slide-bg: linear-gradient(150deg, rgba(21,42,31,0.88) 0%, rgba(13,26,20,0.93) 100%);
+    --slide-bg-commentary: linear-gradient(150deg, rgba(26,48,36,0.9) 0%, rgba(16,30,23,0.93) 100%);
+    --question-badge: #d4c38a;
+    --commentary-badge: #6fa0a8;
+    --bible-read-badge: #9b8bc9;
+    --section-badge-gs: #6fa0a8;
+    --section-badge-oi: #d4c38a;
+    --section-badge-io: #7fae6f;
+    --implications-bg: linear-gradient(145deg, rgba(20,40,30,0.9) 0%, rgba(14,28,21,0.93) 100%);
+    --sidebar-bg: #0a1510;
+    --sidebar-item: #26402f;
+    --sidebar-item-active: #d4c38a;
+    --sidebar-width: 170px;
+    --nav-btn-bg: #152a1f;
+    --nav-btn-color: #91a993;
+    --nav-btn-hover-bg: #d4c38a;
+    --nav-btn-hover-color: #152a1f;
+    --overlay-bg: rgba(13, 26, 20, 0.92);
+    --badge-font-size: 0.75rem;
+  }
+
+  /* All themes are scenic: frosted-glass slide cards so the backdrop shows through softly */
+  .slide-container,
+  .scratchpad-slide,
+  .reader-page {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  /* ========== LAYOUT ========== */
+  #app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-scenic, var(--bg));
+    transition: background 0.4s ease;
+  }
+
+  /* ========== HEADER ========== */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 1.25rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    transition: background 0.4s ease, border-color 0.4s ease;
+    z-index: 10;
+  }
+  header h1 {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+  }
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .slide-counter {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .pdf-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--bg-card);
+    color: var(--text);
+    opacity: 0.9;
+    transition: all 0.2s ease;
+    line-height: 1;
+  }
+  .pdf-link:hover {
+    opacity: 1;
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+  .pdf-link.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.25rem 0.55rem;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    line-height: 1;
+  }
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+  /* Theme picker: collapsed = icon only; the invisible native select on top
+     still opens the full icon + name option list */
+  .theme-select-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.25rem 0.45rem;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    line-height: 1;
+    transition: all 0.2s ease;
+  }
+  .theme-select-wrap:hover,
+  .theme-select-wrap:focus-within {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+  .theme-select {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: 0.85rem;
+  }
+  .theme-select option {
+    background: var(--bg-card);
+    color: var(--text);
+  }
+
+  /* Clock display */
+  .slide-clock {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: var(--font-ui);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* Global slide text size — affects every slide type (question, commentary,
+     bible-read, implications) */
+  .slide-font-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .slide-font-btn {
+    padding: 0.25rem 0.55rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 700;
+  }
+  .slide-font-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: var(--font-ui);
+    min-width: 2.4rem;
+    text-align: center;
+  }
+
+  /* ========== MAIN CONTENT AREA ========== */
+  main {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ========== TABLE OF CONTENTS ========== */
+  #toc-view {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    padding: 2rem 2rem 4rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    background: var(--bg-scenic, var(--bg));
+  }
+  #toc-view.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  #toc-view h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .toc-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .toc-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-depth);
+  }
+  .toc-card .study-number {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.4rem;
+  }
+  .toc-card .study-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .toc-card .study-info {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  /* ========== SLIDE VIEW (with sidebar) ========== */
+  #slide-view {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: stretch;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  #slide-view.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #slide-view-body {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Split mode: slide fills remaining, panel height fixed */
+  .split-bible #slide-view-body {
+    flex-direction: column;
+    height: 100%;
+  }
+  .split-bible .slide-area {
+    flex: 1;
+    min-height: 20vh;
+    overflow: hidden;
+  }
+  .split-bible .slide-area .slide-container {
+    max-height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .split-bible-panel {
+    height: 66%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border);
+    z-index: 10;
+    min-height: 100px;
+    /* Must exactly complement .split-bible .slide-area's `min-height:20vh` + the
+       8px divider — both expressed relative to the viewport/header, not this
+       panel's own container — or the two can still overshoot by the header's height. */
+    max-height: calc(100% - 20vh - 8px);
+    resize: vertical;
+    overflow: auto;
+  }
+  .split-bible-panel .split-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 1rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    font-family: var(--font-ui);
+  }
+  .split-bible-panel .split-header h3 {
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .split-bible-panel .split-close {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  .split-bible-panel .split-close:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .split-bible-panel iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+  }
+
+  /* Split divider / drag handle */
+  .split-divider {
+    height: 8px;
+    background: var(--border);
+    cursor: row-resize;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    user-select: none;
+    transition: background 0.2s ease;
+  }
+  .split-divider:hover {
+    background: var(--accent);
+  }
+  .split-divider.dragging {
+    background: var(--accent);
+  }
+
+  /* Split mode: reduce padding further — no height cap, flex fills remaining */
+  .split-bible .slide-container {
+    padding: 0.75rem 1rem !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+  .split-bible .slide-content.question {
+    font-size: clamp(1rem, 2.5vh, 2.2rem) !important;
+  }
+  .split-bible .slide-content.commentary {
+    font-size: clamp(0.85rem, 1.8vh, 1.4rem) !important;
+  }
+  .split-bible .slide-badge {
+    margin-bottom: 0.5rem !important;
+    padding: 0.2rem 0.6rem !important;
+    font-size: 0.6rem !important;
+  }
+  .split-bible .slide-content.bible-read {
+    font-size: clamp(0.85rem, 1.8vh, 1.4rem) !important;
+  }
+  .split-bible .bible-read-passage {
+    font-size: clamp(0.9rem, 2.4vh, 1.6rem) !important;
+    margin-bottom: 0.4rem !important;
+  }
+  .split-bible .bible-read-actions {
+    margin-top: 0.6rem !important;
+    gap: 0.4rem !important;
+  }
+  .split-bible .bible-read-button {
+    padding: 0.35rem 0.9rem !important;
+    font-size: 0.75rem !important;
+  }
+  .split-bible .slide-content.implications-questions {
+    font-size: clamp(0.75rem, 1.8vh, 1.3rem) !important;
+  }
+  .split-bible .implications-question {
+    padding: 0.6rem !important;
+    margin: 0.35rem !important;
+    font-size: clamp(0.7rem, 1.6vh, 1rem) !important;
+  }
+
+  /* ── Slide Navigator Sidebar ── */
+  #slide-navigator {
+    width: var(--sidebar-width);
+    flex-shrink: 0;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 0.5rem 0;
+    transition: background 0.4s ease, border-color 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  #slide-navigator::-webkit-scrollbar { width: 4px; }
+  #slide-navigator::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .nav-item {
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    border-left: 3px solid transparent;
+    transition: all 0.15s ease;
+    font-family: var(--font-ui);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nav-item:hover {
+    background: var(--bg-card-hover);
+    color: var(--text);
+  }
+  .nav-item.active {
+    border-left-color: var(--accent);
+    background: var(--accent-glow);
+    color: var(--accent);
+  }
+  .nav-item .nav-icon {
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+    font-size: 0.7rem;
+  }
+  .nav-item .nav-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Study title header in sidebar */
+  .sidebar-study-title {
+    padding: 0.5rem 0.6rem 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0.25rem;
+    font-family: var(--font-ui);
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── Slide area (right of sidebar) ── */
+  .slide-area {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.3s ease;
+  }
+
+  .slide-container {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    max-height: 75vh;
+    overflow-y: auto;
+    background: var(--slide-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-lg);
+    padding: var(--slide-padding);
+    box-shadow: var(--shadow-depth);
+    transition: background 0.4s ease, border-color 0.4s ease, border-radius 0.4s ease, width 0.3s ease;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .slide-container::-webkit-scrollbar { width: 6px; }
+  .slide-container::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* Commentary slide background */
+  .slide-container.commentary-bg {
+    background: var(--slide-bg-commentary) !important;
+    border-color: var(--accent) !important;
+    border-width: 1.5px;
+  }
+  .slide-container.implications-bg {
+    background: var(--implications-bg) !important;
+  }
+
+  /* Slide type badge */
+  .slide-badge {
+    display: inline-block;
+    font-size: var(--badge-font-size);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 0.3rem 0.9rem;
+    border-radius: var(--border-radius-pill);
+    margin-bottom: 1.5rem;
+    font-family: var(--font-ui);
+  }
+  .slide-badge.question { background: var(--question-badge); color: #fff; }
+  .slide-badge.commentary { background: var(--commentary-badge); color: #fff; }
+  .slide-badge.bible-read { background: var(--bible-read-badge); color: #fff; }
+  .slide-badge.implications-questions { background: var(--section-badge-io); color: #fff; }
+
+  /* Slide content — one global, directly-set size (the header A-/A+ control
+     is the source of truth) shared by every slide type, not viewport-scaled. */
+  .slide-content {
+    font-family: var(--font-family);
+    font-size: var(--slide-font-size-live, 32px);
+    line-height: 1.6;
+    color: var(--text);
+    text-align: var(--content-align);
+  }
+  .slide-content.question {
+    font-size: var(--slide-font-size-live, 32px);
+    font-weight: 600;
+    text-align: center;
+    padding: 0.5rem 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .slide-content.commentary {
+    font-size: var(--slide-font-size-live, 32px);
+    text-align: justify;
+  }
+  .slide-content.commentary p { margin-bottom: 0.6rem; line-height: 1.55; }
+  .slide-content.commentary p:last-child { margin-bottom: 0; }
+  .slide-content.bible-read { font-size: var(--slide-font-size-live, 32px); width: 100%; }
+  .slide-content.bible-read p { margin-bottom: 0.6rem; line-height: 1.55; }
+  .slide-content.bible-read p:last-child { margin-bottom: 0; }
+  .slide-content.implications-questions { font-size: var(--slide-font-size-live, 32px); line-height: 1.5; }
+
+  .slide-content em { color: var(--accent); font-style: italic; }
+  .slide-content strong {
+    color: var(--accent);
+    text-decoration: var(--accent-underline);
+  }
+  .slide-content blockquote {
+    border-left: 4px solid var(--accent);
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* Bible reference links */
+  .slide-content a.bible-ref {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 2px;
+    cursor: help;
+    transition: color 0.2s ease;
+  }
+  .slide-content a.bible-ref:hover {
+    color: var(--text);
+    text-decoration-style: solid;
+  }
+
+  /* Implications question styling — tiled card layout */
+  .implications-question {
+    display: inline-flex;
+    flex-direction: column;
+    width: calc(50% - 1.5rem);
+    min-width: 280px;
+    margin: 0.75rem;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-depth);
+    vertical-align: top;
+    text-align: left;
+    font-size: calc(var(--slide-font-size-live, 32px) * 0.85);
+  }
+  #slide-content.implications-questions {
+    text-align: center;
+    padding: 0.5rem;
+  }
+  .implications-question:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  /* Bible-read passage reference */
+  .bible-read-passage {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--bible-read-badge);
+    margin-bottom: 1rem;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  .bible-read-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .bible-read-button {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    background: var(--bible-read-badge);
+    color: #fff;
+    text-decoration: none;
+    border-radius: var(--border-radius-pill);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid var(--bible-read-badge);
+    font-family: var(--font-ui);
+  }
+  .bible-read-button:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.35);
+  }
+  .bible-read-button.secondary {
+    background: transparent;
+    color: var(--bible-read-badge);
+  }
+  .bible-read-button.secondary:hover {
+    background: var(--bible-read-badge);
+    color: #fff;
+  }
+
+  /* ========== NAVIGATION BUTTONS ========== */
+  .nav-area {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 10%;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .nav-area.prev { left: 0; }
+  .nav-area.next { right: 0; }
+  .nav-area .nav-arrow {
+    font-size: 2.5rem;
+    color: var(--nav-btn-color);
+    background: var(--nav-btn-bg);
+    border: 1px solid var(--border);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.45;
+    transition: all 0.2s ease;
+    pointer-events: none;
+  }
+  .nav-area:hover .nav-arrow {
+    opacity: 1;
+    background: var(--nav-btn-hover-bg);
+    color: var(--nav-btn-hover-color);
+    border-color: var(--nav-btn-hover-bg);
+  }
+  /* SVG chevron, not a font glyph — guarantees true optical centering
+     (the ‹/› characters sit off-center in most fonts). Sized off the
+     existing font-size so the responsive rule below still applies. */
+  .nav-arrow svg {
+    width: 0.56em;
+    height: 0.56em;
+    display: block;
+  }
+
+  /* ========== BACK TO TOC BUTTON ========== */
+  .back-toc-btn {
+    position: fixed;
+    bottom: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.35rem 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.25s ease;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-ui);
+  }
+  .back-toc-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .back-toc-btn .icon { font-size: 0.9rem; }
+
+  /* ========== KEYBOARD HINT ========== */
+  .keyboard-hint {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    opacity: 0.4;
+    text-align: right;
+    line-height: 1.6;
+    z-index: 5;
+    font-family: var(--font-ui);
+  }
+
+
+  /* Split mode: slide fills remaining, panel height fixed */
+  .split-bible #slide-view-body {
+    flex-direction: column;
+    height: 100%;
+  }
+  .split-bible .slide-area {
+    flex: 1;
+    min-height: 20vh;
+    overflow: hidden;
+  }
+  .split-bible .slide-area .slide-container {
+    max-height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .split-bible-panel {
+    height: 66%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border);
+    z-index: 10;
+    min-height: 100px;
+    /* Must exactly complement .split-bible .slide-area's `min-height:20vh` + the
+       8px divider — both expressed relative to the viewport/header, not this
+       panel's own container — or the two can still overshoot by the header's height. */
+    max-height: calc(100% - 20vh - 8px);
+    resize: vertical;
+    overflow: auto;
+  }
+  .split-bible-panel .split-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 1rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    font-family: var(--font-ui);
+  }
+  .split-bible-panel .split-header h3 {
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .split-bible-panel .split-close {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  .split-bible-panel .split-close:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .split-bible-panel iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+  }
+
+  /* Split divider / drag handle */
+  .split-divider {
+    height: 8px;
+    background: var(--border);
+    cursor: row-resize;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    user-select: none;
+    transition: background 0.2s ease;
+  }
+  .split-divider:hover {
+    background: var(--accent);
+  }
+  .split-divider.dragging {
+    background: var(--accent);
+  }
+
+  /* Split mode: reduce padding further — no height cap, flex fills remaining */
+  .split-bible .slide-container {
+    padding: 0.75rem 1rem !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+  .split-bible .slide-content.question {
+    font-size: clamp(1rem, 2.5vh, 2.2rem) !important;
+  }
+  .split-bible .slide-content.commentary {
+    font-size: clamp(0.85rem, 1.8vh, 1.4rem) !important;
+  }
+  .split-bible .slide-badge {
+    margin-bottom: 0.5rem !important;
+    padding: 0.2rem 0.6rem !important;
+    font-size: 0.6rem !important;
+  }
+  .split-bible .slide-content.bible-read {
+    font-size: clamp(0.85rem, 1.8vh, 1.4rem) !important;
+  }
+  .split-bible .bible-read-passage {
+    font-size: clamp(0.9rem, 2.4vh, 1.6rem) !important;
+    margin-bottom: 0.4rem !important;
+  }
+  .split-bible .bible-read-actions {
+    margin-top: 0.6rem !important;
+    gap: 0.4rem !important;
+  }
+  .split-bible .bible-read-button {
+    padding: 0.35rem 0.9rem !important;
+    font-size: 0.75rem !important;
+  }
+  .split-bible .slide-content.implications-questions {
+    font-size: clamp(0.75rem, 1.8vh, 1.3rem) !important;
+  }
+  .split-bible .implications-question {
+    padding: 0.6rem !important;
+    margin: 0.35rem !important;
+    font-size: clamp(0.7rem, 1.6vh, 1rem) !important;
+  }
+
+  /* ========== VERSE READER PANEL ==========
+     Shares the same bottom-split mechanism as the Bible split (S) —
+     collapses the slide area and defaults taller (~75% vs 66%). */
+  #readerPanel {
+    height: 75%;
+  }
+  .split-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  /* Full-size variant — same panel, same everything, just covers the whole
+     screen instead of sharing space with the slide. Shared by the Bible
+     panel (B / Shift+B) and the Verse Reader (R / Shift+R). */
+  .split-bible-panel.fullscreen {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    z-index: 1000;
+    border-top: none;
+    border-radius: 0;
+    resize: none;
+  }
+  .reader-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    padding: 0.5rem 1rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    font-family: var(--font-ui);
+  }
+  .reader-query-input {
+    flex: 1;
+    min-width: 160px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    font-family: var(--font-ui);
+    outline: none;
+  }
+  .reader-query-input:focus { border-color: var(--accent); }
+  .reader-version-select {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.4rem 0.5rem;
+    border-radius: var(--border-radius);
+    font-size: 0.8rem;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .reader-version-select:focus { border-color: var(--accent); }
+  .reader-font-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+  }
+  .reader-font-btn {
+    padding: 0.3rem 0.6rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 700;
+  }
+  .reader-font-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 2.6rem;
+    text-align: center;
+  }
+  .reader-page-ref {
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .reader-page-counter {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    margin-left: auto;
+  }
+  .reader-body {
+    --reader-body-pad: 1.75rem;
+    position: relative;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    background: var(--bg-scenic, var(--bg));
+    padding: var(--reader-body-pad);
+    box-sizing: border-box;
+  }
+  /* Same card recipe as the main slides — rectangle, shadow, frosted glass
+     over the scenic backdrop — so a page of Scripture reads like a slide. */
+  .reader-page {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    overflow: hidden; /* content is paginated to fit — never scrolls */
+    box-sizing: border-box;
+    font-family: var(--font-family);
+    font-size: var(--reader-font-size, 32px);
+    line-height: 1.7;
+    color: var(--text);
+    text-align: var(--content-align);
+    padding: 2.25rem 5%;
+    background: var(--slide-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-depth);
+  }
+  /* Hidden twin of .reader-page used only to measure how many verses fit
+     at the current font size/width — never shown, avoids flicker. */
+  #readerPageMeasure {
+    position: absolute;
+    /* inset:0 would align to the ancestor's PADDING edge (CSS spec), which is
+       larger than the real page's content box by .reader-body's own padding —
+       so this must match --reader-body-pad. width/height must be auto (not the
+       100%/100% inherited from .reader-page) so the size is DERIVED from the
+       inset offsets, matching the real page's content box exactly. */
+    inset: var(--reader-body-pad);
+    width: auto;
+    height: auto;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .reader-page-heading {
+    font-family: var(--font-ui);
+    font-size: 0.75em;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 0.9em;
+  }
+  .reader-verse-num {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.6em;
+    margin-right: 0.15em;
+  }
+  .reader-empty, .reader-loading {
+    font-family: var(--font-ui);
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* ========== NOTES OVERLAY ========== */
+  #notes-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 33.33vh;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  #notes-overlay.active {
+    transform: translateY(0);
+  }
+  #notes-overlay .notes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    font-family: var(--font-ui);
+  }
+  #notes-overlay .notes-header h3 {
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  #notes-overlay .notes-close {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  #notes-overlay .notes-close:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  #notes-overlay textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 0.5;
+  }
+  .notes-toolbar { display: flex; gap: 2px; padding: 0.25rem 0.5rem; background: var(--bg-card); border-bottom: 1px solid var(--border); }
+  .notes-tool-btn { background: none; border: 1px solid transparent; color: var(--text); width: 28px; height: 26px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; }
+  .notes-tool-btn:hover { background: var(--bg); border-color: var(--border); }
+  .notes-tool-btn:active { background: var(--accent); color: #fff; }
+  .notes-body { flex: 1; overflow-y: auto; padding: 0.75rem 1.5rem; font-size: 0.95rem; line-height: 1.6; color: var(--text); outline: none; }
+
+  /* Push slide container up when notes is open */
+  #slide-view.shrink-for-notes .slide-area .slide-container {
+    max-height: calc(82vh - 33.33vh);
+  }
+  #slide-view.shrink-for-notes .slide-area {
+    padding-bottom: 33.33vh;
+  }
+
+  /* ========== HIGHER MODE ========== */
+    .highlighter-mode {
+      cursor: crosshair;
+    }
+    .highlighter-mode .slide-content {
+      cursor: crosshair;
+    }
+    /* No background fill — a highlight is an underline, not a colour block */
+    .highlight-permanent {
+      background: none;
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+    }
+    /* A highlighted Bible reference — click: Reader, hold: Bible full screen */
+    .verse-ref-link {
+      cursor: pointer;
+      text-decoration-style: dotted;
+    }
+    .verse-ref-link:hover {
+      text-decoration-style: solid;
+    }
+
+    /* Highlighter indicator */
+    #highlighter-indicator {
+      position: fixed;
+      bottom: 4.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #eab308;
+      color: #000;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-family: var(--font-ui);
+      font-weight: 600;
+      z-index: 50;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      pointer-events: none;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    #highlighter-indicator.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+  /* ========== PENCIL EDIT BUTTON ========== */
+  .edit-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    line-height: 1;
+  }
+  .edit-btn:hover, .edit-btn.active {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+  .slide-content[contenteditable="true"] {
+    outline: 2px dashed var(--accent);
+    outline-offset: 4px;
+    padding: 0.5rem;
+    border-radius: 4px;
+    min-height: 2rem;
+  }
+
+  /* ========== SCRATCHPAD OVERLAY ========== */
+  #scratchpad-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: var(--overlay-bg);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  #scratchpad-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  #scratchpad-overlay .overlay-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1.5rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    font-family: var(--font-ui);
+  }
+  #scratchpad-overlay .overlay-header h3 {
+    font-size: 1rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  #scratchpad-overlay .overlay-header .overlay-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .scratchpad-body {
+    flex: 1;
+    background: var(--slide-bg);
+    color: var(--text);
+    padding: var(--slide-padding);
+    font-size: clamp(1rem, 2.5vh, 1.8rem);
+    line-height: 1.6;
+    font-family: var(--font-family);
+    outline: none;
+    overflow-y: auto;
+    text-align: center;
+    border: none;
+  }
+  .scratchpad-body:empty::before {
+    content: "Type your own questions here...";
+    color: var(--text-muted);
+    opacity: 0.4;
+  }
+
+  /* ========== SCRATCHPAD: same UI as slides ========== */
+  #scratchpad-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: var(--overlay-bg);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  #scratchpad-overlay.active { opacity: 1; visibility: visible; }
+  .scratchpad-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .scratchpad-slide {
+    width: 88%;
+    max-width: 1050px;
+    max-height: 82vh;
+    overflow-y: auto;
+    background: var(--slide-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-lg);
+    padding: var(--slide-padding);
+    box-shadow: var(--shadow-depth);
+    color: var(--text);
+    font-size: var(--slide-font-size-live, 32px);
+    line-height: 1.6;
+    font-family: var(--font-family);
+    outline: none;
+    text-align: center;
+    font-weight: 600;
+  }
+  .scratchpad-slide:empty::before {
+    content: "Type your own questions here...";
+    color: var(--text-muted);
+    opacity: 0.4;
+    font-weight: 400;
+  }
+  .scratchpad-badge {
+    display: inline-block;
+    font-size: var(--badge-font-size);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 0.3rem 0.9rem;
+    border-radius: var(--border-radius-pill);
+    background: var(--question-badge);
+    color: #fff;
+    margin-bottom: 1rem;
+    font-family: var(--font-ui);
+  }
+  #timer-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: var(--overlay-bg);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  #timer-overlay.active { opacity: 1; visibility: visible; }
+  .timer-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+  .timer-display {
+    font-size: 6rem;
+    font-weight: 700;
+    font-family: var(--font-ui);
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 4px;
+  }
+  .timer-controls { display: flex; gap: 1rem; }
+  .timer-slider { width: 300px; max-width: 80vw; }
+  .timer-slider-label { font-size: 0.9rem; color: var(--text-muted); font-family: var(--font-ui); }
+  .timer-flash {
+    animation: timerFlash 0.5s ease-in-out 6;
+  }
+  @keyframes timerFlash {
+    0%, 100% { background: var(--bg); }
+    50% { background: #dc2626; }
+  }
+  @keyframes timerBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+  .timer-blink { animation: timerBlink 0.5s ease-in-out 4; }
+  #timer-overlay.flash .timer-display { color: #dc2626; }
+  #timer-overlay.flash { animation: timerFlash 0.5s ease-in-out 6; }
+  .timer-preset { font-size: 0.8rem !important; padding: 0.3rem 0.6rem !important; }
+  .timer-number-input {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: var(--font-ui);
+    width: 80px;
+    text-align: center;
+    outline: none;
+  }
+  .timer-number-input:focus { border-color: var(--accent); }
+  .timer-input-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .timer-input-hint { font-size: 0.7rem; color: var(--text-muted); opacity: 0.5; font-family: var(--font-ui); }
+  .timer-helptext { font-size: 0.75rem; color: var(--text-muted); text-align: center; padding: 0.5rem 1rem 1rem; font-family: var(--font-ui); opacity: 0.5; }
+
+  /* ========== MARKDOWN NOTES ========== */
+  .notes-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  #notesTextarea {
+    flex: 1;
+    background: var(--bg);
+    color: var(--text);
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-family: var(--font-ui);
+    resize: none;
+    outline: none;
+    line-height: 1.6;
+  }
+  #notesTextarea::placeholder { color: var(--text-muted); opacity: 0.5; }
+  #notesPreview {
+    flex: 1;
+    background: var(--bg);
+    color: var(--text);
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-family: var(--font-family);
+    line-height: 1.6;
+    overflow-y: auto;
+    display: none;
+  }
+  #notesPreview.active { display: block; }
+  #notesTextarea.hidden { display: none; }
+  #notesPreview h1 { font-size: 1.5rem; color: var(--accent); margin-bottom: 0.5rem; }
+  #notesPreview h2 { font-size: 1.2rem; color: var(--accent); margin-bottom: 0.4rem; }
+  #notesPreview h3 { font-size: 1.1rem; color: var(--accent); margin-bottom: 0.3rem; }
+  #notesPreview ul, #notesPreview ol { padding-left: 1.5rem; margin-bottom: 0.5rem; }
+  #notesPreview li { margin-bottom: 0.25rem; }
+  #notesPreview strong { color: var(--accent); }
+  #notesPreview blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin: 0.5rem 0;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ========== HELP OVERLAY ========== */
+  #help-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    background: var(--overlay-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  #help-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  #help-overlay .help-modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    max-width: 550px;
+    width: 90%;
+    box-shadow: var(--shadow-depth);
+  }
+  #help-overlay .help-modal h2 {
+    font-family: var(--font-ui);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .help-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem 1.5rem;
+  }
+  .help-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border);
+  }
+  .help-item .help-key {
+    display: inline-block;
+    flex-shrink: 0;
+    background: var(--bg-card-hover);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.15rem 0.5rem;
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    min-width: 24px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .help-item .help-desc {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--text);
+  }
+  #help-overlay .help-close-hint {
+    text-align: center;
+    margin-top: 1.2rem;
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  /* ========== SETTINGS ========== */
+  .settings-btn-wrap {
+    position: relative;
+    display: inline-flex;
+  }
+  .settings-btn-wrap .key-needed-dot {
+    display: none;
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 2px var(--bg-card);
+  }
+  .settings-btn-wrap.needs-key .key-needed-dot {
+    display: block;
+  }
+  #settings-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    background: var(--overlay-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  #settings-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  #settings-overlay .settings-modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    max-width: 420px;
+    width: 90%;
+    box-shadow: var(--shadow-depth);
+  }
+  #settings-overlay .settings-modal h2 {
+    font-family: var(--font-ui);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    text-align: center;
+  }
+  .settings-label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+  .settings-input {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+  }
+  .settings-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .settings-hint {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.7rem;
+    line-height: 1.5;
+  }
+  .settings-hint a {
+    color: var(--accent);
+  }
+  .settings-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1.2rem;
+  }
+  .settings-close-hint {
+    text-align: center;
+    margin-top: 1rem;
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  /* ========== SCROLLBAR ========== */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    header { padding: 0.5rem 1rem; }
+    header h1 { font-size: 0.9rem; }
+    .slide-container { padding: 1.5rem; width: 95%; }
+    .bible-read-passage { font-size: 1.2rem; }
+    .implications-question { margin-bottom: 1rem; padding: 1rem; }
+    .toc-grid { grid-template-columns: 1fr; }
+    #toc-view { padding: 1rem; }
+    .nav-area { width: 15%; }
+    .nav-area .nav-arrow { width: 40px; height: 40px; font-size: 1.5rem; }
+    #slide-navigator { width: 160px; font-size: 0.65rem; }
+    .nav-item { padding: 0.3rem 0.5rem; font-size: 0.65rem; }
+    .split-bible-panel { height: 60%; }
+    #notes-overlay { height: 40vh; }
+    .help-grid { grid-template-columns: 1fr; }
+  }
+  @media (min-width: 1400px) {
+    .bible-read-passage { font-size: 2rem; }
+  }
+
+  /* ========== TRANSITIONS ========== */
+  .slide-enter { animation: slideIn 0.35s ease-out; }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========== EMPTY STATE ========== */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-muted);
+    text-align: center;
+    gap: 1rem;
+  }
+  .empty-state .icon { font-size: 4rem; opacity: 0.3; }
+  .empty-state h2 { font-size: 1.5rem; }
+  .empty-state p { font-size: 1rem; max-width: 400px; }
+  .load-example-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 0.85rem 2rem;
+    border-radius: var(--border-radius-pill);
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: var(--font-ui);
+    cursor: pointer;
+    box-shadow: var(--shadow-depth);
+    transition: all 0.2s ease;
+  }
+  .load-example-btn:hover {
+    filter: brightness(1.12);
+    transform: translateY(-2px);
+  }
+  .load-example-hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+    font-family: var(--font-ui);
+  }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <!-- HEADER -->
+  <header>
+    <h1 id="deckTitleDisplay">📖 Bible Study</h1>
+    <div class="header-controls">
+      <span class="slide-counter" id="slideCounter">—</span>
+      <a id="pdfLink" class="pdf-link" href="#" target="_blank" title="Open original PDF">📄</a>
+      <a class="pdf-link" href="/zip" onclick="return confirm('Download all files as ZIP?')" title="Download all files as ZIP">📦</a>
+      <span class="theme-select-wrap" title="Select theme">
+        <span id="themeSelectLabel" aria-hidden="true">🌅</span>
+        <select id="themeSelect" class="theme-select" title="Select theme">
+          <option value="dawn">🌅 Dawn</option>
+          <option value="olive">🫒 Olive</option>
+          <option value="nord">❄️ Nord</option>
+          <option value="sakura">🌸 Sakura</option>
+          <option value="indigo">🌌 Indigo</option>
+          <option value="terracotta">🏺 Terracotta</option>
+          <option value="juniper">🌲 Juniper</option>
+        </select>
+      </span>
+      <button class="edit-btn" id="editBtn" title="Edit slide (E key)">✏️</button>
+      <button class="theme-toggle" id="resetStudyBtn" title="Reset this study to original">↺</button>
+      <button class="theme-toggle" id="scratchpadBtn" title="Scratchpad (P key)">➕</button>
+      <button class="theme-toggle" id="timerBtn" title="Countdown timer">⏱️</button>
+      <span class="settings-btn-wrap" id="settingsBtnWrap">
+        <button class="theme-toggle" id="settingsBtn" title="Settings">⚙️</button>
+        <span class="key-needed-dot" title="Add your ESV API key"></span>
+      </span>
+      <span class="slide-font-controls">
+        <button class="theme-toggle slide-font-btn" id="slideFontDec" title="Smaller slide text">A-</button>
+        <span id="slideFontSizeLabel" class="slide-font-label">32px</span>
+        <button class="theme-toggle slide-font-btn" id="slideFontInc" title="Larger slide text">A+</button>
+      </span>
+      <span class="slide-clock" id="clockDisplay"></span>
+      <button class="back-toc-btn" id="backToTocBtn">☰ Contents</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- TABLE OF CONTENTS -->
+    <div id="toc-view" class="active">
+      <h2>📖 Table of Contents</h2>
+      <div class="toc-grid" id="tocGrid">
+        <!-- Cards injected by JS -->
+      </div>
+    </div>
+
+    <!-- SLIDE VIEW -->
+    <div id="slide-view">
+      <!-- Slide Navigator Sidebar -->
+      <div id="slide-navigator">
+        <!-- Items injected by JS -->
+      </div>
+
+      <div id="slide-view-body">
+        <!-- Slide area -->
+        <div class="slide-area">
+          <div class="nav-area prev" id="navPrev">
+            <div class="nav-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"/></svg></div>
+          </div>
+          <div class="slide-container" id="slideContainer">
+            <div class="slide-badge" id="slideBadge"></div>
+            <div class="slide-content" id="slideContent"></div>
+          </div>
+          <div class="nav-area next" id="navNext">
+            <div class="nav-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></div>
+          </div>
+
+          </div>
+
+        <!-- Split divider / drag handle -->
+        <div class="split-divider" id="splitDivider" style="display:none;">⋮</div>
+
+        <!-- SPLIT BIBLE PANEL (bottom split) -->
+        <div id="splitBiblePanel" class="split-bible-panel" style="display:none;">
+          <div class="split-header">
+            <h3>📖 ESV</h3>
+            <div class="split-header-actions">
+              <button class="split-close" id="splitBibleFullscreenBtn" title="Full screen (Shift+B)">⤢</button>
+              <button class="split-close" id="splitBibleClose">✕</button>
+            </div>
+          </div>
+          <iframe id="splitBibleIframe" src="about:blank" title="Literal Word Bible"></iframe>
+        </div>
+
+        <!-- VERSE READER PANEL (bottom split, shares the divider with Bible split) -->
+        <div id="readerPanel" class="split-bible-panel" style="display:none;">
+          <div class="split-header">
+            <h3>📖 Verse Reader</h3>
+            <div class="split-header-actions">
+              <button class="split-close" id="readerFullscreenBtn" title="Full screen (Shift+R)">⤢</button>
+              <button class="split-close" id="readerClose">✕</button>
+            </div>
+          </div>
+          <div class="reader-toolbar">
+            <input type="text" id="readerQueryInput" class="reader-query-input" placeholder="e.g. 1 Chronicles 13-14">
+            <button class="theme-toggle" id="readerSearchBtn" title="Load passage">Go</button>
+            <select id="readerVersionSelect" class="reader-version-select" title="Bible version">
+              <option value="esv">ESV</option>
+              <option value="kjv">KJV</option>
+              <option value="web">WEB</option>
+              <option value="asv">ASV</option>
+              <option value="bbe">BBE</option>
+              <option value="ylt">YLT</option>
+            </select>
+            <span class="reader-font-controls">
+              <button class="theme-toggle reader-font-btn" id="readerFontDec" title="Smaller text">A-</button>
+              <span id="readerFontSizeLabel" class="reader-font-label">32px</span>
+              <button class="theme-toggle reader-font-btn" id="readerFontInc" title="Larger text">A+</button>
+            </span>
+            <span id="readerPageRef" class="reader-page-ref"></span>
+            <span id="readerPageCounter" class="reader-page-counter">—</span>
+          </div>
+          <div class="reader-body" id="readerBody">
+            <div class="nav-area prev" id="readerNavPrev"><div class="nav-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"/></svg></div></div>
+            <div class="reader-page" id="readerPageContent"><div class="reader-empty">Type a reference above and press Enter — e.g. "1 Chronicles 13-14"</div></div>
+            <div class="reader-page" id="readerPageMeasure" aria-hidden="true"></div>
+            <div class="nav-area next" id="readerNavNext"><div class="nav-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- KEYBOARD HINT -->
+        <div class="keyboard-hint">
+          ← → · Esc/Home · B Bible · Shift+B Bible full screen · R Reader · Shift+R Reader full screen · H Highlighter (right-click to remove) · N Notes · P Scratchpad · E Edit · ? Help
+        </div>
+
+        <!-- HIGHLIGHTER INDICATOR -->
+        <div id="highlighter-indicator">🖍️ Highlighter ON</div>
+      </main>
+</div>
+
+
+<!-- NOTES OVERLAY -->
+<div id="notes-overlay">
+  <div class="notes-header">
+    <h3>📝 Notes</h3>
+    <div class="notes-toolbar">
+      <button class="notes-tool-btn" data-cmd="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+      <button class="notes-tool-btn" data-cmd="underline" title="Underline (Ctrl+U)"><u>U</u></button>
+      <button class="notes-tool-btn" data-cmd="insertUnorderedList" title="Bullet list">•</button>
+      <button class="notes-tool-btn" data-cmd="hiliteColor" title="Highlight" style="background:#ffff00;color:#000;">🖍️</button>
+    </div>
+    <button class="notes-close" id="notesClose">✕</button>
+  </div>
+  <div class="notes-body" id="notesBody" contenteditable="true"></div>
+</div>
+
+<!-- HELP OVERLAY -->
+<div id="help-overlay">
+  <div class="help-modal">
+    <h2>⌨️ Keyboard Shortcuts</h2>
+    <div class="help-grid">
+      <div class="help-item"><span class="help-key">→</span><span class="help-key">Space</span><span class="help-desc">Next slide</span></div>
+      <div class="help-item"><span class="help-key">←</span><span class="help-desc">Previous slide</span></div>
+      <div class="help-item"><span class="help-key">Esc</span><span class="help-key">Home</span><span class="help-desc">Table of Contents</span></div>
+      <div class="help-item"><span class="help-key">B</span><span class="help-desc">Bible (split screen)</span></div>
+      <div class="help-item"><span class="help-key">Shift+B</span><span class="help-desc">Bible — full screen</span></div>
+      <div class="help-item"><span class="help-key">R</span><span class="help-desc">Verse reader (search & read slideshow)</span></div>
+      <div class="help-item"><span class="help-key">Shift+R</span><span class="help-desc">Verse reader — full screen</span></div>
+      <div class="help-item"><span class="help-key">H</span><span class="help-desc">Highlighter (toggle ON/OFF) · right-click to remove</span></div>
+      <div class="help-item"><span class="help-key">click/hold</span><span class="help-desc">Verse ref: click → Reader, Shift+click → Bible, hold → edit ref</span></div>
+      <div class="help-item"><span class="help-key">N</span><span class="help-desc">Notes (rich text · saved to localStorage)</span></div>
+      <div class="help-item"><span class="help-key">P</span><span class="help-desc">Scratchpad slide · saved to localStorage</span></div>
+      <div class="help-item"><span class="help-key">E</span><span class="help-desc">Edit slide · saved to localStorage</span></div>
+      <div class="help-item"><span class="help-key">L</span><span class="help-desc">Leader notes (popup window)</span></div>
+      <div class="help-item"><span class="help-key">T</span><span class="help-desc">Switch theme</span></div>
+      <div class="help-item"><span class="help-key">?</span><span class="help-desc">This help</span></div>
+    </div>
+    <div class="help-close-hint">Press ? or Esc to close · Template v1.0.0</div>
+    <div class="help-footer" style="font-size:0.7rem;color:var(--text-muted);padding:0.5rem 1rem 1rem;border-top:1px solid var(--border);margin-top:0.5rem;text-align:center;">💾 Notes, slide edits, position, theme, scratchpad, timer presets, highlights, and reader font size are saved to localStorage on your device</div>
+  </div>
+</div>
+
+<!-- SETTINGS OVERLAY -->
+<div id="settings-overlay">
+  <div class="settings-modal">
+    <h2>⚙️ Settings</h2>
+    <label class="settings-label" for="esvKeyInput">Crossway ESV API key</label>
+    <input type="text" id="esvKeyInput" class="settings-input" placeholder="Paste your ESV API key here" autocomplete="off" spellcheck="false">
+    <p class="settings-hint">Get a free key at <a href="https://api.esv.org/account" target="_blank" rel="noopener">api.esv.org/account</a>. Without one, the Bible reader and overlay fall back to free public-domain translations (KJV, WEB, and others).</p>
+    <div class="settings-actions">
+      <button class="theme-toggle" id="settingsSaveBtn">Save</button>
+      <button class="theme-toggle" id="settingsClearBtn">Clear</button>
+    </div>
+    <div class="settings-close-hint">Press Esc to close</div>
+  </div>
+</div>
+
+<!-- SCRATCHPAD MODAL -->
+<div id="scratchpad-overlay">
+  <div class="overlay-header">
+    <h3>📝 Scratchpad</h3>
+    <div class="overlay-controls">
+      <button class="overlay-close" id="scratchpadClose">✕</button>
+    </div>
+  </div>
+  <div class="scratchpad-body">
+    <div class="scratchpad-badge">Scratchpad</div>
+        <div id="scratchpadContent" contenteditable="true" class="scratchpad-slide"></div>
+      </div>
+    </div>
+
+    <!-- COUNTDOWN TIMER OVERLAY -->
+    <div id="timer-overlay">
+      <div class="overlay-header">
+        <h3>⏱️ Countdown</h3>
+        <div class="overlay-controls">
+          <button class="theme-toggle timer-preset" data-minutes="180">3m</button>
+                <button class="theme-toggle timer-preset" data-minutes="300">5m</button>
+                <button class="theme-toggle timer-preset" data-minutes="600">10m</button>
+          <button class="overlay-close" id="timerClose">✕</button>
+        </div>
+      </div>
+      <div class="timer-body">
+        <div class="timer-display" id="timerDisplay">05:00</div>
+        <div class="timer-controls">
+          <button class="theme-toggle" id="timerStartBtn">▶ Start</button>
+          <button class="theme-toggle" id="timerResetBtn">↺ Reset</button>
+        </div>
+        <div class="timer-input-row">
+          <label class="timer-slider-label">Duration</label>
+          <input type="text" id="timerNumberInput" class="timer-number-input" value="5" placeholder="e.g. 5, 5:30, 1h15m">
+          <span class="timer-input-hint">5 = 5min · 5:30 = 5min30s · 1h = 60min</span>
+        </div>
+      </div>
+      <div class="timer-helptext">Press Esc to close · ⏱️ button shows time when running</div>
+    </div>
+
+    <script>
+        (function() {
+      'use strict';
+
+  // ========== CONFIG ==========
+  const PDF_URL = (function() {
+    // Use injected DECK_PDF_URL if available
+    if (typeof DECK_PDF_URL !== 'undefined' && DECK_PDF_URL) {
+      return DECK_PDF_URL;
+    }
+    // Auto-detect PDF: replace .html extension with .pdf
+    const path = window.location.pathname;
+    if (path && !path.startsWith('file:')) {
+      const pdfPath = path.replace(/\.html?$/i, '.pdf');
+      if (pdfPath !== path) return pdfPath;
+    }
+    // Fallback: same filename with .pdf extension
+    return '';
+  })();
+
+  // Verse Reader: ESV via Crossway's official API (requires a free key from
+  // api.esv.org). Set your own key below to bake it into every copy of this
+  // file, or leave it blank and add it per-browser via the ⚙️ Settings button
+  // (saved to localStorage — this key is visible to anyone who views this
+  // page's source either way).
+  const ESV_API_KEY_DEFAULT = '';
+  let ESV_API_KEY = ESV_API_KEY_DEFAULT;
+  try {
+    var savedEsvKey = localStorage.getItem('bible-study-esv-api-key');
+    if (savedEsvKey) ESV_API_KEY = savedEsvKey;
+  } catch (e) {}
+
+  // ========== STATE ==========
+  let studies = [];
+  let currentSlides = [];
+  let currentSlideIndex = 0;
+  let currentStudyIndex = 0;
+  let isInToc = true;
+  let totalSlides = 0;
+  let isSplitBibleOpen = false;
+  let isSplitBibleFullscreen = false;
+  let isNotesOpen = false;
+  let isHelpOpen = false;
+  let isSettingsOpen = false;
+  let isHighlighterActive = false;
+  let isEditMode = false;
+  let isScratchpadOpen = false;
+  let scratchpadContent = '';
+  let leaderNotesWindow = null;
+  let deckTitle = '📖 Bible Study';
+  let notesDebounceTimer = null;
+  let lastBibleUrl = '';
+  let isReaderOpen = false;
+  let isReaderFullscreen = false;
+  let readerVerses = [];
+  let readerPages = [];
+  let readerPageIndex = 0;
+  let readerFontSize = 32;
+  let slideFontSize = 32;
+  let readerVersion = 'esv';
+  let readerRepaginateTimer = null;
+
+  const el = {
+    tocView: document.getElementById('toc-view'),
+    slideView: document.getElementById('slide-view'),
+    tocGrid: document.getElementById('tocGrid'),
+    slideContainer: document.getElementById('slideContainer'),
+    slideBadge: document.getElementById('slideBadge'),
+    slideFontDec: document.getElementById('slideFontDec'),
+    slideFontInc: document.getElementById('slideFontInc'),
+    slideFontSizeLabel: document.getElementById('slideFontSizeLabel'),
+    slideContent: document.getElementById('slideContent'),
+    slideCounter: document.getElementById('slideCounter'),
+    backBtn: document.getElementById('backToTocBtn'),
+    navPrev: document.getElementById('navPrev'),
+    navNext: document.getElementById('navNext'),
+    themeBtn: document.getElementById('themeBtn'),
+    pdfLink: document.getElementById('pdfLink'),
+    slideNavigator: document.getElementById('slide-navigator'),
+    deckTitleDisplay: document.getElementById('deckTitleDisplay'),
+    splitBiblePanel: document.getElementById('splitBiblePanel'),
+    splitBibleIframe: document.getElementById('splitBibleIframe'),
+    splitBibleClose: document.getElementById('splitBibleClose'),
+    splitBibleFullscreenBtn: document.getElementById('splitBibleFullscreenBtn'),
+    splitDivider: document.getElementById('splitDivider'),
+    slideViewBody: document.getElementById('slide-view-body'),
+    notesOverlay: document.getElementById('notes-overlay'),
+    notesTextarea: document.getElementById('notesTextarea'),
+    notesClose: document.getElementById('notesClose'),
+    helpOverlay: document.getElementById('help-overlay'),
+    settingsOverlay: document.getElementById('settings-overlay'),
+    settingsBtn: document.getElementById('settingsBtn'),
+    settingsBtnWrap: document.getElementById('settingsBtnWrap'),
+    esvKeyInput: document.getElementById('esvKeyInput'),
+    settingsSaveBtn: document.getElementById('settingsSaveBtn'),
+    settingsClearBtn: document.getElementById('settingsClearBtn'),
+    readerPanel: document.getElementById('readerPanel'),
+    readerQueryInput: document.getElementById('readerQueryInput'),
+    readerSearchBtn: document.getElementById('readerSearchBtn'),
+    readerVersionSelect: document.getElementById('readerVersionSelect'),
+    readerFontDec: document.getElementById('readerFontDec'),
+    readerFontInc: document.getElementById('readerFontInc'),
+    readerFontSizeLabel: document.getElementById('readerFontSizeLabel'),
+    readerPageRef: document.getElementById('readerPageRef'),
+    readerPageCounter: document.getElementById('readerPageCounter'),
+    readerPageContent: document.getElementById('readerPageContent'),
+    readerPageMeasure: document.getElementById('readerPageMeasure'),
+    readerNavPrev: document.getElementById('readerNavPrev'),
+    readerNavNext: document.getElementById('readerNavNext'),
+    readerClose: document.getElementById('readerClose'),
+    readerFullscreenBtn: document.getElementById('readerFullscreenBtn'),
+  };
+
+  // ========== EXAMPLE DATA (for testing the template with no real deck) ==========
+  var EXAMPLE_DECK_DATA = [
+    {
+      title: 'Example Study: The Ark Comes to Jerusalem',
+      date: 'Sample data — for testing this template',
+      slides: [
+        { type: 'bible-read', section: 'Getting Started', passage: '1 Chronicles 13:1-14', content: '1 Chronicles 13:1-14' },
+        { type: 'question', section: 'Getting Started', content: '1. What stands out to you most in this passage?' },
+        { type: 'question', section: 'Getting Started', content: '2. What questions does this passage raise for you?' },
+        { type: 'commentary', section: 'Observation & Interpretation',
+          content: '<p>David gathered all Israel to bring the ark of God from Kiriath-jearim — but it was carried on a new cart rather than by the Levites, as the Law required (Numbers 4:15). When the oxen stumbled, Uzzah reached out to steady the ark and was struck down.</p><p>This echoes the longing expressed in <a class="bible-ref" data-ref="Psalm 24:7-10">Psalm 24:7-10</a> — a desire for God\'s presence, pursued in the wrong way.</p>' },
+        { type: 'question', section: 'Observation & Interpretation', content: '3. Why do you think Uzzah\'s death provoked such a strong reaction from David (v.11-12)?' },
+        { type: 'question', section: 'Observation & Interpretation', content: '4. What does this passage teach about approaching God on His terms rather than our own?' },
+        { type: 'implications-questions', section: 'Implications & Obedience',
+          content: '<div class="implications-question">Where in your life are you approaching God in a way that feels convenient rather than how He has asked?</div>' +
+                    '<div class="implications-question">What would it look like this week to pursue God\'s presence with greater reverence?</div>' +
+                    '<div class="implications-question">Who could you talk to about what you\'re learning from this study?</div>' }
+      ]
+    },
+    {
+      title: 'Example Study: David\'s Victories',
+      date: 'Sample data — second study, to test the Table of Contents grid',
+      slides: [
+        { type: 'bible-read', section: 'Getting Started', passage: '1 Chronicles 14:1-17', content: '1 Chronicles 14:1-17' },
+        { type: 'question', section: 'Getting Started', content: '1. What do you notice about David\'s posture before each battle?' },
+        { type: 'commentary', section: 'Observation & Interpretation',
+          content: '<p>Twice David <strong>inquired of the Lord</strong> before going to battle, rather than assuming the previous victory guaranteed the next. God\'s instructions differed each time.</p>' },
+        { type: 'implications-questions', section: 'Implications & Obedience',
+          content: '<div class="implications-question">Where might you be relying on a past success instead of seeking fresh direction?</div>' +
+                    '<div class="implications-question">What would it look like to "inquire of the Lord" in a current decision?</div>' }
+      ]
+    }
+  ];
+
+  function loadExampleData() {
+    window.DECK_DATA = JSON.parse(JSON.stringify(EXAMPLE_DECK_DATA));
+    loadData();
+  }
+
+  // ========== LOAD DATA ==========
+  var originalDeckData = null; // unmodified copy for reset
+
+  function loadData() {
+    if (!window.DECK_DATA) {
+      renderEmpty();
+      return;
+    }
+    try {
+      studies = window.DECK_DATA;
+      // Store a deep copy for reset functionality
+      originalDeckData = JSON.parse(JSON.stringify(window.DECK_DATA));
+      if (!Array.isArray(studies) || studies.length === 0) {
+        renderEmpty();
+        return;
+      }
+      // Set dynamic deck title from DECK_TITLE (extracted from PDF first page)
+      if (typeof DECK_TITLE !== 'undefined' && DECK_TITLE) {
+        deckTitle = '📖 ' + DECK_TITLE;
+        el.deckTitleDisplay.textContent = deckTitle;
+      } else if (studies[0] && studies[0].title) {
+        deckTitle = '📖 ' + studies[0].title;
+        el.deckTitleDisplay.textContent = deckTitle;
+      }
+      renderToc();
+      showToc();
+      // Restore edited slides from localStorage — apply to DECK_DATA
+      for (var si = 0; si < studies.length; si++) {
+        for (var sli = 0; sli < studies[si].slides.length; sli++) {
+          var key = 'bible-study-edited-slide-' + si + '-' + sli;
+          try {
+            var saved = localStorage.getItem(key);
+            if (saved) {
+              studies[si].slides[sli].content = saved;
+            }
+          } catch(e) {}
+        }
+      }
+    } catch (e) {
+      console.error('Invalid deck data:', e);
+      renderEmpty();
+    }
+  }
+
+  // ========== RENDER TABLE OF CONTENTS ==========
+  function renderToc() {
+    el.tocGrid.innerHTML = '';
+    studies.forEach(function(study, idx) {
+      var dateInfo = study.date || '';
+      var dateHtml = dateInfo ? '<div class="study-info">' + dateInfo + '</div>' : '';
+      var card = document.createElement('div');
+      card.className = 'toc-card';
+      card.innerHTML =
+        '<div class="study-number">Study ' + (idx + 1) + '</div>' +
+        '<div class="study-title">' + study.title + '</div>' +
+        dateHtml;
+      card.addEventListener('click', function() { openStudy(idx); });
+      card.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openStudy(idx); } });
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', 'Open ' + study.title);
+      el.tocGrid.appendChild(card);
+    });
+  }
+
+  function renderEmpty() {
+    el.tocGrid.innerHTML =
+      '<div class="empty-state" style="grid-column:1/-1">' +
+        '<div class="icon">📖</div>' +
+        '<h2>No Study Data</h2>' +
+        '<p>Load the presentation with study data embedded in the <code>window.DECK_DATA</code> global variable.</p>' +
+        '<button class="load-example-btn" id="loadExampleBtn">📖 Load Example Study Data</button>' +
+        '<div class="load-example-hint">Sample content for testing this template — your real deck data will replace it once embedded.</div>' +
+      '</div>';
+    var exBtn = document.getElementById('loadExampleBtn');
+    if (exBtn) exBtn.addEventListener('click', loadExampleData);
+  }
+
+  // ========== NAVIGATION ==========
+  function savePosition() {
+    try {
+      localStorage.setItem('bible-study-study', String(currentStudyIndex));
+      localStorage.setItem('bible-study-slide', String(currentSlideIndex));
+    } catch (e) { /* localStorage unavailable */ }
+  }
+
+  function openStudy(studyIdx) {
+    var study = studies[studyIdx];
+    if (!study || !study.slides || study.slides.length === 0) return;
+    currentStudyIndex = studyIdx;
+    currentSlides = study.slides;
+    totalSlides = currentSlides.length;
+
+    // Restore last slide position in this study
+    var savedStudy = null, savedSlide = null;
+    try {
+      savedStudy = localStorage.getItem('bible-study-study');
+      savedSlide = localStorage.getItem('bible-study-slide');
+    } catch (e) {}
+    if (savedStudy !== null && parseInt(savedStudy) === studyIdx && savedSlide !== null) {
+      currentSlideIndex = Math.min(parseInt(savedSlide), currentSlides.length - 1);
+    } else {
+      currentSlideIndex = 0;
+    }
+
+    showSlide();
+  }
+
+  function showSlide() {
+    if (currentSlides.length === 0) return;
+
+    // Apply saved edit from localStorage before rendering
+    var editKey = 'bible-study-edited-slide-' + currentStudyIndex + '-' + currentSlideIndex;
+    try {
+      var saved = localStorage.getItem(editKey);
+      if (saved && currentSlides[currentSlideIndex]) {
+        currentSlides[currentSlideIndex].content = saved;
+      }
+    } catch(e) {}
+
+    var slide = currentSlides[currentSlideIndex];
+
+    // ── Section-based badge ──
+    var sectionLabels = {
+      'Getting Started': 'Getting Started',
+      'Observation & Interpretation': 'O & I',
+      'Implications & Obedience': 'I & O',
+    };
+
+    if (slide.type === 'bible-read') {
+      el.slideBadge.className = 'slide-badge bible-read';
+      el.slideBadge.textContent = 'Scripture';
+    } else if (slide.type === 'implications-questions') {
+      el.slideBadge.className = 'slide-badge implications-questions';
+      el.slideBadge.textContent = 'Implication and Obedience';
+    } else if (slide.type === 'question') {
+      el.slideBadge.className = 'slide-badge question';
+      var match = slide.content.match(/^(\d+)\.\s/);
+      if (match) {
+        el.slideBadge.textContent = 'Q' + match[1];
+      } else {
+        el.slideBadge.textContent = '❓';
+      }
+    } else {
+      el.slideBadge.className = 'slide-badge commentary';
+      el.slideBadge.textContent = sectionLabels[slide.section] || slide.section || 'Commentary';
+    }
+
+    // ── Background styling ──
+    el.slideContainer.classList.remove('commentary-bg', 'implications-bg');
+    if (slide.type === 'commentary') {
+      el.slideContainer.classList.add('commentary-bg');
+    } else if (slide.type === 'implications-questions') {
+      el.slideContainer.classList.add('implications-bg');
+    }
+
+    // ── Content ──
+    el.slideContent.className = 'slide-content ' + (slide.type || 'commentary');
+
+    if (slide.type === 'bible-read') {
+      var passage = slide.passage || '';
+      var html = '';
+      if (passage) {
+        html += '<div class="bible-read-passage">' + slide.content + '</div>';
+      } else {
+        html += slide.content || '';
+      }
+      if (passage) {
+        var encoded = encodeURIComponent(passage);
+        html += '<div class="bible-read-actions">' +
+          '<button class="bible-read-button" data-passage="' + encoded + '">Open in Literal Word ↗</button>' +
+          '<button class="bible-read-button secondary" data-passage="' + encoded + '">Open in Verse Reader (Slides)</button>' +
+        '</div>';
+      }
+      el.slideContent.innerHTML = html;
+
+      // Primary: fullscreen Literal Word overlay (ESV)
+      var literalBtn = el.slideContent.querySelector('.bible-read-button:not(.secondary)');
+      if (literalBtn) {
+        literalBtn.addEventListener('click', function() {
+          openBibleWithUrl('https://literalword.com/esv/?q=' + this.dataset.passage);
+        });
+      }
+      // Secondary: the paginated Verse Reader, pre-loaded with this passage
+      var readerBtn = el.slideContent.querySelector('.bible-read-button.secondary');
+      if (readerBtn) {
+        readerBtn.addEventListener('click', function() {
+          openReaderWithPassage(decodeURIComponent(this.dataset.passage));
+        });
+      }
+    } else {
+      el.slideContent.innerHTML = slide.content || '';
+    }
+
+    // ── Counter ──
+    var globalIndex = flattenIndex();
+    el.slideCounter.textContent = 'Slide ' + (globalIndex + 1) + ' of ' + totalSlidesAll();
+
+    // ── Animation ──
+    el.slideContainer.classList.remove('slide-enter');
+    void el.slideContainer.offsetWidth;
+    el.slideContainer.classList.add('slide-enter');
+
+    // ── Update navigator ──
+    updateNavigator();
+
+    showSlideView();
+  }
+
+  function flattenIndex() {
+    var idx = 0;
+    for (var i = 0; i < currentStudyIndex; i++) {
+      if (studies[i] && studies[i].slides) idx += studies[i].slides.length;
+    }
+    idx += currentSlideIndex;
+    return idx;
+  }
+
+  function totalSlidesAll() {
+    return studies.reduce(function(sum, s) { return sum + (s.slides ? s.slides.length : 0); }, 0);
+  }
+
+  function nextSlide() {
+    if (isEditMode) saveSlideEdit();
+    if (currentSlideIndex < currentSlides.length - 1) {
+      currentSlideIndex++;
+      showSlide();
+      savePosition();
+      pushSlideUpdateToPopup();
+    }
+  }
+
+  function prevSlide() {
+    if (isEditMode) saveSlideEdit();
+    if (currentSlideIndex > 0) {
+      currentSlideIndex--;
+      showSlide();
+      savePosition();
+      pushSlideUpdateToPopup();
+    }
+  }
+
+  function goToSlide(index) {
+    if (index >= 0 && index < currentSlides.length) {
+      currentSlideIndex = index;
+      showSlide();
+      savePosition();
+      pushSlideUpdateToPopup();
+    }
+  }
+
+  function goToToc() {
+    // Save position before leaving so resumePosition picks it up
+    savePosition();
+    isInToc = true;
+    el.tocView.classList.add('active');
+    el.slideView.classList.remove('active');
+    el.slideCounter.textContent = '';
+    var firstCard = el.tocGrid.querySelector('.toc-card');
+    if (firstCard) firstCard.focus();
+  }
+
+  function showSlideView() {
+    isInToc = false;
+    el.tocView.classList.remove('active');
+    el.slideView.classList.add('active');
+  }
+
+  function showToc() {
+    isInToc = true;
+    el.tocView.classList.add('active');
+    el.slideView.classList.remove('active');
+    el.slideCounter.textContent = '';
+  }
+
+  // ========== SLIDE NAVIGATOR ==========
+  function updateNavigator() {
+    el.slideNavigator.innerHTML = '';
+
+    // Study title header at the top of the sidebar
+    var header = document.createElement('div');
+    header.className = 'sidebar-study-title';
+    var study = studies[currentStudyIndex];
+    header.textContent = study ? study.title : '';
+    el.slideNavigator.appendChild(header);
+
+    currentSlides.forEach(function(slide, idx) {
+      var item = document.createElement('div');
+      item.className = 'nav-item' + (idx === currentSlideIndex ? ' active' : '');
+      item.setAttribute('data-index', idx);
+
+      // Icon
+      var icon = '💬';
+      if (slide.type === 'question') icon = '❓';
+      else if (slide.type === 'bible-read') icon = '📖';
+      else if (slide.type === 'commentary') icon = '📝';
+      else if (slide.type === 'implications-questions') icon = '📋';
+
+      // Label
+      var label = slide.section || '';
+      if (slide.type === 'question') {
+        var m = slide.content.match(/^(\d+)\.\s/);
+        if (m) label = 'Q' + m[1];
+      } else if (slide.type === 'bible-read') {
+        label = slide.passage || 'Scripture';
+      } else if (slide.type === 'implications-questions') {
+        label = 'Implication and Obedience';
+      } else if (slide.type === 'commentary') {
+        label = 'Commentary';
+      }
+
+      item.innerHTML = '<span class="nav-icon">' + icon + '</span><span class="nav-label">' + label + '</span>';
+      item.addEventListener('click', function() { goToSlide(idx); });
+      el.slideNavigator.appendChild(item);
+    });
+
+    // Scroll active item into view
+    var active = el.slideNavigator.querySelector('.nav-item.active');
+    if (active) {
+      active.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }
+
+  // ========== BIBLE OVERLAY ==========
+  // Restore last Bible URL from localStorage
+  try {
+    var savedBibleUrl = localStorage.getItem('bible-study-last-url');
+    if (savedBibleUrl) lastBibleUrl = savedBibleUrl;
+  } catch(e) {}
+
+  // ========== BIBLE PANEL — split screen (B) and full screen (Shift+B) ==========
+  function toggleSplitBible() {
+    isSplitBibleOpen = !isSplitBibleOpen;
+    if (isSplitBibleOpen) {
+      if (isReaderOpen) toggleReaderPanel();
+      el.splitBiblePanel.style.display = 'flex';
+      el.splitDivider.style.display = isSplitBibleFullscreen ? 'none' : 'flex';
+      el.slideView.classList.add('split-bible');
+      // Restore last split height from localStorage
+      var savedHeight = localStorage.getItem('bible-study-split-height');
+      if (savedHeight) {
+        el.splitBiblePanel.style.height = savedHeight;
+      }
+      // Set iframe src only on first open (about:blank) or when a URL was saved
+      if (el.splitBibleIframe.src === 'about:blank') {
+        if (lastBibleUrl) {
+          el.splitBibleIframe.src = lastBibleUrl;
+        } else {
+          el.splitBibleIframe.src = 'https://literalword.com/esv';
+        }
+      }
+      setTimeout(function() {
+        try { el.splitBibleIframe.contentWindow.focus(); } catch(e) {}
+      }, 500);
+    } else {
+      el.splitBiblePanel.style.display = 'none';
+      el.splitDivider.style.display = 'none';
+      el.slideView.classList.remove('split-bible');
+      // Always reopen in split mode next time, regardless of how it was closed
+      if (isSplitBibleFullscreen) {
+        isSplitBibleFullscreen = false;
+        el.splitBiblePanel.classList.remove('fullscreen');
+        el.splitBibleFullscreenBtn.textContent = '⤢';
+        el.splitBibleFullscreenBtn.title = 'Full screen (Shift+B)';
+      }
+    }
+  }
+
+  // Full-size variant — same panel/iframe, just covers the whole screen
+  // instead of sharing space with the slide (mirrors the Verse Reader's R/Shift+R).
+  function toggleSplitBibleFullscreen() {
+    isSplitBibleFullscreen = !isSplitBibleFullscreen;
+    el.splitBiblePanel.classList.toggle('fullscreen', isSplitBibleFullscreen);
+    el.splitDivider.style.display = isSplitBibleFullscreen ? 'none' : 'flex';
+    el.splitBibleFullscreenBtn.textContent = isSplitBibleFullscreen ? '⤡' : '⤢';
+    el.splitBibleFullscreenBtn.title = isSplitBibleFullscreen ? 'Exit full screen (Shift+B)' : 'Full screen (Shift+B)';
+  }
+
+  // Open the Bible panel at a specific passage (from a bible-read slide's button) —
+  // always jumps straight to full screen, matching the old "Open in Literal Word" behavior.
+  function openBibleWithUrl(url) {
+    el.splitBibleIframe.src = url;
+    lastBibleUrl = url;
+    try { localStorage.setItem('bible-study-last-url', url); } catch(e) {}
+    if (!isSplitBibleOpen) toggleSplitBible();
+    if (!isSplitBibleFullscreen) toggleSplitBibleFullscreen();
+  }
+
+  el.splitBibleClose.addEventListener('click', function() {
+    if (isSplitBibleOpen) toggleSplitBible();
+  });
+  el.splitBibleFullscreenBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (!isSplitBibleOpen) toggleSplitBible();
+    toggleSplitBibleFullscreen();
+  });
+
+  // Whichever bottom panel is currently visible — only one is shown at a time
+  function activeSplitPanel() {
+    return isReaderOpen ? el.readerPanel : el.splitBiblePanel;
+  }
+  function activeSplitHeightKey() {
+    return isReaderOpen ? 'bible-study-reader-height' : 'bible-study-split-height';
+  }
+
+  // Drag handle for resizing — both panel and slide adjust proportionally
+  var splitDragActive = false;
+  el.splitDivider.addEventListener('mousedown', function(e) {
+    splitDragActive = true;
+    el.splitDivider.classList.add('dragging');
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (!splitDragActive) return;
+    var viewBody = el.slideViewBody;
+    var bodyRect = viewBody.getBoundingClientRect();
+    var bodyH = bodyRect.height;
+    // Distance from cursor to bottom of container = panel height
+    var panelH = Math.max(80, Math.min(bodyH - (e.clientY - bodyRect.top) - 4, bodyH - 80));
+    activeSplitPanel().style.height = panelH + 'px';
+    // Slide area fills the rest automatically via flex:1
+    try { localStorage.setItem(activeSplitHeightKey(), panelH + 'px'); } catch(e) {}
+  });
+  document.addEventListener('mouseup', function() {
+    if (splitDragActive) {
+      splitDragActive = false;
+      el.splitDivider.classList.remove('dragging');
+    }
+  });
+
+  // Touch support for drag handle
+  el.splitDivider.addEventListener('touchstart', function(e) {
+    splitDragActive = true;
+    el.splitDivider.classList.add('dragging');
+    e.preventDefault();
+  }, { passive: false });
+  document.addEventListener('touchmove', function(e) {
+    if (!splitDragActive) return;
+    var touch = e.touches[0];
+    var viewBody = el.slideViewBody;
+    var bodyRect = viewBody.getBoundingClientRect();
+    var bodyH = bodyRect.height;
+    var panelH = Math.max(80, Math.min(bodyH - (touch.clientY - bodyRect.top) - 4, bodyH - 80));
+    activeSplitPanel().style.height = panelH + 'px';
+    try { localStorage.setItem(activeSplitHeightKey(), panelH + 'px'); } catch(e) {}
+  }, { passive: false });
+  document.addEventListener('touchend', function() {
+    if (splitDragActive) {
+      splitDragActive = false;
+      el.splitDivider.classList.remove('dragging');
+    }
+  });
+
+  // ========== VERSE READER — bottom split, paginated reading slideshow ==========
+  function toggleReaderPanel() {
+    isReaderOpen = !isReaderOpen;
+    if (isReaderOpen) {
+      if (isSplitBibleOpen) toggleSplitBible();
+      el.readerPanel.style.display = 'flex';
+      el.splitDivider.style.display = 'flex';
+      el.slideView.classList.add('split-bible');
+      // Restore last-used reader height — otherwise falls back to the CSS default (75%)
+      var savedHeight = localStorage.getItem('bible-study-reader-height');
+      if (savedHeight) {
+        el.readerPanel.style.height = savedHeight;
+      } else {
+        el.readerPanel.style.height = '';
+      }
+      setTimeout(function() { el.readerQueryInput.focus(); }, 300);
+    } else {
+      el.readerPanel.style.display = 'none';
+      el.splitDivider.style.display = 'none';
+      el.slideView.classList.remove('split-bible');
+      // Always reopen in split mode next time, regardless of how it was closed
+      if (isReaderFullscreen) {
+        isReaderFullscreen = false;
+        el.readerPanel.classList.remove('fullscreen');
+        el.readerFullscreenBtn.textContent = '⤢';
+        el.readerFullscreenBtn.title = 'Full screen (Shift+R)';
+      }
+    }
+  }
+
+  // Full-size variant — same panel/content, just covers the whole screen
+  // instead of sharing space with the slide (mirrors Bible's B vs S).
+  function toggleReaderFullscreen() {
+    isReaderFullscreen = !isReaderFullscreen;
+    el.readerPanel.classList.toggle('fullscreen', isReaderFullscreen);
+    el.splitDivider.style.display = isReaderFullscreen ? 'none' : 'flex';
+    el.readerFullscreenBtn.textContent = isReaderFullscreen ? '⤡' : '⤢';
+    el.readerFullscreenBtn.title = isReaderFullscreen ? 'Exit full screen (Shift+R)' : 'Full screen (Shift+R)';
+  }
+
+  // Open the Reader panel pre-loaded with a given passage (from a bible-read slide's button)
+  function openReaderWithPassage(passageText) {
+    if (!isReaderOpen) toggleReaderPanel();
+    el.readerQueryInput.value = passageText;
+    performReaderSearch();
+  }
+
+  function setReaderFontSize(px) {
+    readerFontSize = Math.max(16, Math.min(64, px));
+    el.readerPanel.style.setProperty('--reader-font-size', readerFontSize + 'px');
+    el.readerFontSizeLabel.textContent = readerFontSize + 'px';
+    try { localStorage.setItem('bible-study-reader-font-size', String(readerFontSize)); } catch(e) {}
+    repaginateReaderKeepingPlace();
+  }
+
+  function loadReaderFontSize() {
+    var saved = parseInt(localStorage.getItem('bible-study-reader-font-size'), 10);
+    setReaderFontSize(isNaN(saved) ? 32 : saved);
+  }
+
+  // ========== SLIDE FONT SIZE (A-/A+ in header — affects every slide type) ==========
+  function setSlideFontSize(px) {
+    slideFontSize = Math.max(16, Math.min(64, px));
+    document.documentElement.style.setProperty('--slide-font-size-live', slideFontSize + 'px');
+    el.slideFontSizeLabel.textContent = slideFontSize + 'px';
+    try { localStorage.setItem('bible-study-slide-font-size', String(slideFontSize)); } catch(e) {}
+  }
+
+  function loadSlideFontSize() {
+    var saved = parseInt(localStorage.getItem('bible-study-slide-font-size'), 10);
+    setSlideFontSize(isNaN(saved) ? 32 : saved);
+  }
+
+  el.slideFontDec.addEventListener('click', function() { setSlideFontSize(slideFontSize - 2); });
+  el.slideFontInc.addEventListener('click', function() { setSlideFontSize(slideFontSize + 2); });
+
+  function loadReaderVersion() {
+    var saved = localStorage.getItem('bible-study-reader-version');
+    readerVersion = saved || 'esv';
+    el.readerVersionSelect.value = readerVersion;
+  }
+
+  function readerPageLabel(pageVerses) {
+    var first = pageVerses[0], last = pageVerses[pageVerses.length - 1];
+    var book = first.book_name || '';
+    if (first.chapter === last.chapter) {
+      return book + ' ' + first.chapter + ':' + first.verse + (last.verse !== first.verse ? '-' + last.verse : '');
+    }
+    return book + ' ' + first.chapter + ':' + first.verse + ' – ' + last.chapter + ':' + last.verse;
+  }
+
+  // Fit verses to the actual rendered container at the current font size/width —
+  // measured in a hidden twin of .reader-page so there's no scrollbar and no flicker.
+  function repaginateReader() {
+    if (readerVerses.length === 0) { readerPages = []; return; }
+    var measure = el.readerPageMeasure;
+    var pages = [];
+    var i = 0;
+    while (i < readerVerses.length) {
+      var pageVerses = [];
+      var html = '';
+      var j = i;
+      while (j < readerVerses.length) {
+        var piece = '<sup class="reader-verse-num">' + readerVerses[j].verse + '</sup> ' + escapeHtml(readerVerses[j].text.trim());
+        var candidateHtml = html ? (html + ' ' + piece) : piece;
+        var candidateLabel = readerPageLabel(pageVerses.concat([readerVerses[j]]));
+        // Include the in-card heading in the fit check — it takes real space too
+        measure.innerHTML = '<div class="reader-page-heading">' + candidateLabel + '</div>' + candidateHtml;
+        var overflows = measure.scrollHeight > measure.clientHeight + 1;
+        if (overflows && pageVerses.length > 0) break; // doesn't fit — leave it for the next page
+        html = candidateHtml;
+        pageVerses.push(readerVerses[j]);
+        j++;
+        if (overflows) break; // a single verse already fills the page on its own
+      }
+      pages.push({ verses: pageVerses, html: html, label: readerPageLabel(pageVerses) });
+      i = j;
+    }
+    readerPages = pages;
+  }
+
+  // Re-paginate (font size or panel-size change) while keeping the same verse in view.
+  function repaginateReaderKeepingPlace() {
+    if (readerVerses.length === 0) return;
+    var anchorIdx = 0;
+    if (readerPages[readerPageIndex] && readerPages[readerPageIndex].verses.length > 0) {
+      anchorIdx = readerPages[readerPageIndex].verses[0]._idx;
+    }
+    repaginateReader();
+    var newIndex = 0;
+    for (var p = 0; p < readerPages.length; p++) {
+      var verses = readerPages[p].verses;
+      if (anchorIdx <= verses[verses.length - 1]._idx) { newIndex = p; break; }
+      newIndex = p;
+    }
+    readerShowPage(newIndex);
+  }
+
+  function readerShowPage(idx) {
+    if (readerPages.length === 0) return;
+    readerPageIndex = Math.max(0, Math.min(idx, readerPages.length - 1));
+    var page = readerPages[readerPageIndex];
+    el.readerPageContent.innerHTML = '<div class="reader-page-heading">' + page.label + '</div>' + page.html;
+    el.readerPageRef.textContent = page.label;
+    el.readerPageCounter.textContent = 'Page ' + (readerPageIndex + 1) + ' of ' + readerPages.length;
+  }
+
+  function readerNextPage() {
+    if (readerPageIndex < readerPages.length - 1) readerShowPage(readerPageIndex + 1);
+  }
+
+  function readerPrevPage() {
+    if (readerPageIndex > 0) readerShowPage(readerPageIndex - 1);
+  }
+
+  // Re-paginate when the panel is resized (drag handle or window resize)
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(function() {
+      if (!isReaderOpen || readerVerses.length === 0) return;
+      clearTimeout(readerRepaginateTimer);
+      readerRepaginateTimer = setTimeout(repaginateReaderKeepingPlace, 150);
+    }).observe(el.readerPageContent);
+  }
+
+  // bible-api.com refuses to serve more than one whole chapter per request
+  // ("too many chapters"). Detect a plain "Book C1-C2" whole-chapter range
+  // (no verse numbers) so we can fetch each chapter separately and merge them.
+  function parseWholeChapterRange(raw) {
+    var m = raw.match(/^(.+?)\s+(\d+)\s*-\s*(\d+)$/);
+    if (!m) return null;
+    var book = m[1].trim();
+    var start = parseInt(m[2], 10);
+    var end = parseInt(m[3], 10);
+    if (!book || isNaN(start) || isNaN(end) || end < start) return null;
+    if (end - start > 49) return null; // sanity cap against runaway fetches
+    return { book: book, start: start, end: end };
+  }
+
+  function performReaderSearch() {
+    var raw = el.readerQueryInput.value.trim();
+    if (!raw) return;
+    try { localStorage.setItem('bible-study-reader-last-query', raw); } catch(e) {}
+    readerVerses = [];
+    readerPages = [];
+    el.readerPageRef.textContent = '';
+    el.readerPageCounter.textContent = '—';
+    el.readerPageContent.innerHTML = '<div class="reader-loading">Loading ' + escapeHtml(raw) + '…</div>';
+
+    if (readerVersion === 'esv') {
+      fetchEsvReaderQuery(raw);
+      return;
+    }
+
+    var chapterRange = parseWholeChapterRange(raw);
+    if (chapterRange) {
+      fetchWholeChapterRange(chapterRange, raw);
+    } else {
+      fetchSingleReaderQuery(raw);
+    }
+  }
+
+  // ESV — Crossway's official API, the only version here not limited to
+  // public-domain text. Handles multi-chapter ranges in a single request.
+  function parseEsvHtmlToVerses(html, bookName) {
+    var verses = [];
+    // Crossway adds extra classes to some markers (e.g. class="verse-num woc"
+    // for words of Christ), so match chapter-num/verse-num as one of possibly several.
+    var re = /<b class="[^"]*\b(?:chapter-num|verse-num)\b[^"]*" id="v(\d{2})(\d{3})(\d{3})-\d+">[^<]*<\/b>/g;
+    var parts = html.split(re);
+    for (var i = 1; i < parts.length; i += 4) {
+      var chapter = parseInt(parts[i + 1], 10);
+      var verse = parseInt(parts[i + 2], 10);
+      var text = (parts[i + 3] || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+      if (text) verses.push({ book_name: bookName, chapter: chapter, verse: verse, text: text });
+    }
+    return verses;
+  }
+
+  function fetchEsvReaderQuery(raw) {
+    if (!ESV_API_KEY) {
+      el.readerPageContent.innerHTML = '<div class="reader-empty">Add your free ESV API key in <a href="#" id="readerOpenSettingsLink">⚙️ Settings</a> to use this translation — or pick another version above.</div>';
+      var settingsLink = document.getElementById('readerOpenSettingsLink');
+      if (settingsLink) settingsLink.addEventListener('click', function(e) { e.preventDefault(); openSettings(); });
+      return;
+    }
+    var url = 'https://api.esv.org/v3/passage/html/?q=' + encodeURIComponent(raw) +
+      '&include-headings=false&include-footnotes=false&include-verse-numbers=true' +
+      '&include-audio-link=false&include-passage-references=false&include-short-copyright=false';
+    fetch(url, { headers: { 'Authorization': 'Token ' + ESV_API_KEY } })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && (data.detail || data.errors)) {
+          el.readerPageContent.innerHTML = '<div class="reader-empty">' + escapeHtml(data.detail || data.errors) + '</div>';
+          return;
+        }
+        if (!data || !data.passages || data.passages.length === 0) {
+          el.readerPageContent.innerHTML = '<div class="reader-empty">No verses found for "' + escapeHtml(raw) + '". Check the reference and try again.</div>';
+          return;
+        }
+        var bookName = (data.canonical || raw).replace(/\s+\d+(:\d+)?\s*[–-]?\s*(\d+(:\d+)?)?\s*$/, '').trim();
+        var verses = [];
+        data.passages.forEach(function(html) {
+          verses = verses.concat(parseEsvHtmlToVerses(html, bookName));
+        });
+        if (verses.length === 0) {
+          el.readerPageContent.innerHTML = '<div class="reader-empty">No verses found for "' + escapeHtml(raw) + '". Check the reference and try again.</div>';
+          return;
+        }
+        readerVerses = verses;
+        readerVerses.forEach(function(v, i) { v._idx = i; });
+        repaginateReader();
+        readerShowPage(0);
+      })
+      .catch(function() {
+        el.readerPageContent.innerHTML = '<div class="reader-empty">Could not load that passage. Check your connection or the reference and try again.</div>';
+      });
+  }
+
+  function fetchSingleReaderQuery(raw) {
+    var query = raw.replace(/\./g, '').replace(/\s+/g, '+');
+    var url = 'https://bible-api.com/' + encodeURI(query) + '?translation=' + readerVersion;
+    fetch(url)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data.error) {
+          el.readerPageContent.innerHTML = '<div class="reader-empty">' + escapeHtml(data.detail || data.error) + '</div>';
+          return;
+        }
+        if (!data || !data.verses || data.verses.length === 0) {
+          el.readerPageContent.innerHTML = '<div class="reader-empty">No verses found for "' + escapeHtml(raw) + '". Check the reference and try again.</div>';
+          return;
+        }
+        readerVerses = data.verses;
+        readerVerses.forEach(function(v, i) { v._idx = i; });
+        repaginateReader();
+        readerShowPage(0);
+      })
+      .catch(function() {
+        el.readerPageContent.innerHTML = '<div class="reader-empty">Could not load that passage. Check your connection or the reference and try again.</div>';
+      });
+  }
+
+  function fetchWholeChapterRange(range, raw) {
+    var chapters = [];
+    for (var c = range.start; c <= range.end; c++) chapters.push(c);
+    Promise.all(chapters.map(function(c) {
+      var q = (range.book + ' ' + c).replace(/\s+/g, '+');
+      return fetch('https://bible-api.com/' + encodeURI(q) + '?translation=' + readerVersion).then(function(r) { return r.json(); });
+    })).then(function(results) {
+      for (var i = 0; i < results.length; i++) {
+        if (!results[i] || results[i].error || !results[i].verses) {
+          el.readerPageContent.innerHTML = '<div class="reader-empty">Could not load ' + escapeHtml(range.book) + ' ' + chapters[i] + '. Check the reference and try again.</div>';
+          return;
+        }
+      }
+      var allVerses = [];
+      results.forEach(function(d) { allVerses = allVerses.concat(d.verses); });
+      if (allVerses.length === 0) {
+        el.readerPageContent.innerHTML = '<div class="reader-empty">No verses found for "' + escapeHtml(raw) + '". Check the reference and try again.</div>';
+        return;
+      }
+      readerVerses = allVerses;
+      readerVerses.forEach(function(v, i) { v._idx = i; });
+      repaginateReader();
+      readerShowPage(0);
+    }).catch(function() {
+      el.readerPageContent.innerHTML = '<div class="reader-empty">Could not load that passage. Check your connection or the reference and try again.</div>';
+    });
+  }
+
+  el.readerSearchBtn.addEventListener('click', performReaderSearch);
+  el.readerQueryInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); performReaderSearch(); }
+    else if (e.key === 'Escape') { e.preventDefault(); if (isReaderFullscreen) toggleReaderFullscreen(); else toggleReaderPanel(); }
+  });
+  el.readerVersionSelect.addEventListener('change', function() {
+    readerVersion = this.value;
+    try { localStorage.setItem('bible-study-reader-version', readerVersion); } catch(e) {}
+    if (el.readerQueryInput.value.trim()) performReaderSearch();
+  });
+  el.readerFontDec.addEventListener('click', function() { setReaderFontSize(readerFontSize - 2); });
+  el.readerFontInc.addEventListener('click', function() { setReaderFontSize(readerFontSize + 2); });
+  el.readerClose.addEventListener('click', function() { if (isReaderOpen) toggleReaderPanel(); });
+  el.readerFullscreenBtn.addEventListener('click', function(e) { e.stopPropagation(); toggleReaderFullscreen(); });
+  el.readerNavPrev.addEventListener('click', function(e) { e.stopPropagation(); readerPrevPage(); });
+  el.readerNavNext.addEventListener('click', function(e) { e.stopPropagation(); readerNextPage(); });
+
+  // Restore last-used reference text (not auto-fetched) and font size
+  try {
+    var savedReaderQuery = localStorage.getItem('bible-study-reader-last-query');
+    if (savedReaderQuery) el.readerQueryInput.value = savedReaderQuery;
+  } catch(e) {}
+
+  // ========== NOTES OVERLAY (rich text) ==========
+  var notesBody = document.getElementById('notesBody');
+
+  function toggleNotes() {
+    isNotesOpen = !isNotesOpen;
+    if (isNotesOpen) {
+      el.notesOverlay.classList.add('active');
+      el.slideView.classList.add('shrink-for-notes');
+      notesBody.focus();
+    } else {
+      el.notesOverlay.classList.remove('active');
+      el.slideView.classList.remove('shrink-for-notes');
+    }
+  }
+
+  function closeNotes() {
+    if (isNotesOpen) {
+      isNotesOpen = false;
+      el.notesOverlay.classList.remove('active');
+      el.slideView.classList.remove('shrink-for-notes');
+      el.slideContainer.focus();
+      el.slideContainer.setAttribute('tabindex', '-1');
+    }
+  }
+
+  // Load saved notes HTML
+  try {
+    var savedNotes = localStorage.getItem('bible-study-notes');
+    if (savedNotes !== null) notesBody.innerHTML = savedNotes;
+  } catch(e) {}
+
+  // Save notes on input with debounce
+  notesBody.addEventListener('input', function() {
+    if (notesDebounceTimer) clearTimeout(notesDebounceTimer);
+    notesDebounceTimer = setTimeout(function() {
+      try { localStorage.setItem('bible-study-notes', notesBody.innerHTML); } catch(e) {}
+    }, 300);
+  });
+
+  // Toolbar: execCommand on click
+  document.querySelectorAll('.notes-tool-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var cmd = this.dataset.cmd;
+      if (cmd === 'hiliteColor') {
+        document.execCommand('hiliteColor', false, '#ffff00');
+      } else {
+        document.execCommand(cmd, false, null);
+      }
+      notesBody.focus();
+    });
+  });
+
+  el.notesClose.addEventListener('click', closeNotes);
+
+  // ========== HELP OVERLAY ==========
+  function toggleHelp() {
+    isHelpOpen = !isHelpOpen;
+    if (isHelpOpen) {
+      el.helpOverlay.classList.add('active');
+    } else {
+      el.helpOverlay.classList.remove('active');
+    }
+  }
+
+  function closeHelp() {
+    if (isHelpOpen) {
+      isHelpOpen = false;
+      el.helpOverlay.classList.remove('active');
+    }
+  }
+
+  // Click outside help modal to close
+  el.helpOverlay.addEventListener('click', function(e) {
+    if (e.target === el.helpOverlay) {
+      closeHelp();
+    }
+  });
+
+  // ========== SETTINGS ==========
+  function updateSettingsBadge() {
+    el.settingsBtnWrap.classList.toggle('needs-key', !ESV_API_KEY);
+  }
+
+  function openSettings() {
+    isSettingsOpen = true;
+    el.esvKeyInput.value = ESV_API_KEY || '';
+    el.settingsOverlay.classList.add('active');
+    el.esvKeyInput.focus();
+  }
+
+  function closeSettings() {
+    if (isSettingsOpen) {
+      isSettingsOpen = false;
+      el.settingsOverlay.classList.remove('active');
+    }
+  }
+
+  function saveEsvKey(key) {
+    ESV_API_KEY = key;
+    try {
+      if (key) localStorage.setItem('bible-study-esv-api-key', key);
+      else localStorage.removeItem('bible-study-esv-api-key');
+    } catch (e) {}
+    updateSettingsBadge();
+  }
+
+  el.settingsBtn.addEventListener('click', openSettings);
+
+  el.settingsOverlay.addEventListener('click', function(e) {
+    if (e.target === el.settingsOverlay) {
+      closeSettings();
+    }
+  });
+
+  el.settingsSaveBtn.addEventListener('click', function() {
+    saveEsvKey(el.esvKeyInput.value.trim());
+    closeSettings();
+  });
+
+  el.settingsClearBtn.addEventListener('click', function() {
+    el.esvKeyInput.value = '';
+    saveEsvKey('');
+  });
+
+  updateSettingsBadge();
+
+  // ========== EDIT MODE ==========
+  function toggleEditMode() {
+    isEditMode = !isEditMode;
+    if (isEditMode) {
+      el.slideContent.setAttribute('contenteditable', 'true');
+      el.editBtn.classList.add('active');
+    } else {
+      el.slideContent.removeAttribute('contenteditable');
+      el.editBtn.classList.remove('active');
+    }
+  }
+
+  // ========== SCRATCHPAD ==========
+  function toggleScratchpad() {
+    isScratchpadOpen = !isScratchpadOpen;
+    var sp = document.getElementById('scratchpad-overlay');
+    var sc = document.getElementById('scratchpadContent');
+    if (isScratchpadOpen) {
+      sp.classList.add('active');
+      // Restore saved scratchpad content
+      var saved = localStorage.getItem('bible-study-scratchpad');
+      sc.innerHTML = saved || '';
+      sc.focus();
+    } else {
+      // Save scratchpad content
+      localStorage.setItem('bible-study-scratchpad', sc.innerHTML);
+      sp.classList.remove('active');
+    }
+  }
+  document.getElementById('scratchpadClose').addEventListener('click', function() {
+    if (isScratchpadOpen) toggleScratchpad();
+  });
+
+  // ========== CLOCK ==========
+  function updateClock() {
+    var now = new Date();
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    // Hide seconds but update every second for smooth minute transition
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    var timeStr = months[now.getMonth()] + ' ' + now.getDate() + ', ' +
+                  String(h).padStart(2, ' ') + ':' +
+                  String(m).padStart(2, '0') + ' ' + ampm;
+    var clock = document.getElementById('clockDisplay');
+    if (clock) clock.textContent = timeStr;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // ========== COUNTDOWN TIMER ==========
+  var timerSeconds = 300;
+  var timerRemaining = 300;
+  var timerInterval = null;
+  var timerRunning = false;
+
+  function updateTimerDisplay() {
+    var m = Math.floor(timerRemaining / 60);
+    var s = timerRemaining % 60;
+    document.getElementById('timerDisplay').textContent =
+      String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  }
+
+  function startTimer() {
+    if (timerRunning) { stopTimer(); return; }
+    timerRunning = true;
+    document.getElementById('timerStartBtn').textContent = '⏸ Pause';
+    document.getElementById('timerDisplay').classList.remove('timer-blink');
+    timerInterval = setInterval(function() {
+      timerRemaining--;
+      updateTimerDisplay();
+      // Update the timerBtn with remaining time
+      var btn = document.getElementById('timerBtn');
+      var m = Math.floor(timerRemaining / 60);
+      var s = timerRemaining % 60;
+      btn.textContent = '⏱️ ' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+      if (timerRemaining <= 0) {
+        timerRunning = false;
+        document.getElementById('timerStartBtn').textContent = '▶ Start';
+        if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+        // Flash the button: show 00:00 in red, blinking
+        btn.textContent = '⏱️ 00:00';
+        btn.style.color = '#ff0000';
+        btn.style.transition = 'none';
+        // Blink via interval
+        var blinkCount = 0;
+        var blinkInt = setInterval(function() {
+          blinkCount++;
+          btn.style.color = blinkCount % 2 === 0 ? '#ff0000' : 'var(--text)';
+          if (blinkCount >= 8) { // blink 4 times (8 half-cycles)
+            clearInterval(blinkInt);
+            btn.style.color = '';
+            btn.textContent = '⏱️';
+          }
+        }, 300);
+        // Blink the overlay display too
+        document.getElementById('timerDisplay').classList.add('timer-blink');
+        // Alarm: gentle sine tone for 3 seconds
+        try {
+          var ctx = new (window.AudioContext || window.webkitAudioContext)();
+          for (var i = 0; i < 7; i++) {
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.frequency.value = 660;
+            osc.type = 'sine';
+            gain.gain.value = 0.15;
+            osc.start(ctx.currentTime + i * 0.45);
+            osc.stop(ctx.currentTime + i * 0.45 + 0.35);
+          }
+        } catch(e) {}
+        document.getElementById('timerDisplay').textContent = '00:00';
+      }
+    }, 1000);
+  }
+
+  function stopTimer() {
+    timerRunning = false;
+    document.getElementById('timerStartBtn').textContent = '▶ Start';
+    document.getElementById('timerBtn').textContent = '⏱️';
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+  }
+
+  function resetTimer() {
+    stopTimer();
+    timerRemaining = timerSeconds;
+    updateTimerDisplay();
+    document.getElementById('timer-overlay').classList.remove('flash');
+    document.getElementById('timerDisplay').classList.remove('timer-blink');
+  }
+
+  document.getElementById('timerBtn').addEventListener('click', function() {
+    document.getElementById('timer-overlay').classList.add('active');
+    resetTimer();
+  });
+  document.getElementById('timerClose').addEventListener('click', function() {
+    stopTimer();
+    document.getElementById('timer-overlay').classList.remove('active');
+  });
+  document.getElementById('timerStartBtn').addEventListener('click', startTimer);
+  document.getElementById('timerResetBtn').addEventListener('click', resetTimer);
+  document.getElementById('timerNumberInput').addEventListener('change', function() {
+    var val = this.value.trim().toLowerCase();
+    var secs = 0;
+
+    // h/m/s suffixes: 2h30m, 1h, 5m, 90s
+    var unitMatch = val.match(/^(\d+)\s*h\s*(?:(\d+)\s*m\s*(?:\s*(\d+)\s*s)?)?$|^(\d+)\s*m\s*(?:(\d+)\s*s)?$|^(\d+)\s*s$/);
+    if (unitMatch) {
+      var h = parseInt(unitMatch[1] || 0);
+      var m = parseInt(unitMatch[2] || unitMatch[4] || 0);
+      var s = parseInt(unitMatch[3] || unitMatch[5] || unitMatch[6] || 0);
+      secs = h * 3600 + m * 60 + s;
+    } else if (val.indexOf(':') >= 0) {
+      // Colon-separated: 5:30 (m:s), 1:30:00 (h:m:s)
+      var parts = val.split(':').map(Number);
+      if (parts.length === 2) secs = parts[0] * 60 + parts[1];
+      else if (parts.length === 3) secs = parts[0] * 3600 + parts[1] * 60 + parts[2];
+    } else {
+      // Plain number = minutes (like a microwave)
+      var n = parseInt(val) || 0;
+      secs = n * 60;
+    }
+
+    if (secs < 10) secs = 10;
+    if (secs > 36000) secs = 36000; // 10h max
+
+    timerSeconds = secs;
+    timerRemaining = timerSeconds;
+    stopTimer();
+    updateTimerDisplay();
+    this.value = String(Math.floor(timerSeconds / 60)) + 'm';
+    document.getElementById('timerDisplay').classList.remove('timer-blink');
+  });
+  document.querySelectorAll('.timer-preset').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var mins = parseInt(this.dataset.minutes);
+      var secs = mins * 60;
+      timerSeconds = secs;
+      timerRemaining = timerSeconds;
+      document.getElementById('timerNumberInput').value = String(mins) + 'm';
+      stopTimer();
+      updateTimerDisplay();
+      document.getElementById('timerDisplay').classList.remove('timer-blink');
+    });
+  });
+
+  // ========== EDIT MODE: AUTO-SAVE + SLIDE REORDER + ADD/DELETE SLIDES ==========
+  function saveSlideEdit() {
+    var content = el.slideContent.innerHTML;
+    var key = 'bible-study-edited-slide-' + currentStudyIndex + '-' + currentSlideIndex;
+    try { localStorage.setItem(key, content); } catch(e) {}
+  }
+
+  // Reset current study to original
+  document.getElementById('resetStudyBtn').addEventListener('click', function() {
+    if (!confirm('Reset this study to its original content? Edits to this study will be lost.')) return;
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        if (key && key.startsWith('bible-study-edited-slide-' + currentStudyIndex + '-')) {
+          localStorage.removeItem(key);
+        }
+      }
+    } catch(e) {}
+    // Reload from original (unmodified) DECK_DATA
+    if (originalDeckData && originalDeckData[currentStudyIndex]) {
+      currentSlides = JSON.parse(JSON.stringify(originalDeckData[currentStudyIndex].slides));
+      currentSlideIndex = 0;
+      showSlide();
+      updateNavigator();
+    }
+  });
+
+  // Make sidebar slide titles editable in edit mode
+  function makeSidebarEditable() {
+    el.slideNavigator.querySelectorAll('.nav-item').forEach(function(item, idx) {
+      var label = item.querySelector('.nav-label');
+      if (!label || label.getAttribute('contenteditable')) return;
+      label.setAttribute('contenteditable', 'true');
+      label.title = 'Click to edit title';
+      label.addEventListener('blur', function() {
+        try { localStorage.setItem('bible-study-sidebar-title-' + currentStudyIndex + '-' + idx, this.textContent); } catch(e) {}
+      });
+    });
+  }
+
+  var origToggleEdit = toggleEditMode;
+  toggleEditMode = function() {
+    origToggleEdit();
+    if (isEditMode) {
+      var key = 'bible-study-edited-slide-' + currentStudyIndex + '-' + currentSlideIndex;
+      try {
+        var saved = localStorage.getItem(key);
+        if (saved) {
+          el.slideContent.innerHTML = saved;
+        }
+      } catch(e) {}
+
+      makeSidebarEditable();
+    } else {
+      saveSlideEdit();
+      // Remove sidebar contenteditable
+      el.slideNavigator.querySelectorAll('.nav-item').forEach(function(item) {
+        var label = item.querySelector('.nav-label');
+        if (label) label.removeAttribute('contenteditable');
+      });
+    }
+  };
+
+  // ========== HIGHLIGHT RIGHT-CLICK DELETE ==========
+  // Right-click a highlight to remove it
+  el.slideContent.addEventListener('contextmenu', function(e) {
+    var mark = e.target.closest('.highlight-permanent');
+    if (!mark) return;
+    e.preventDefault();
+    clearTimeout(verseLinkPressTimer);
+    var parent = mark.parentNode;
+    while (mark.firstChild) { parent.insertBefore(mark.firstChild, mark); }
+    parent.removeChild(mark);
+    // Save the change so highlights persist
+    try {
+      var hKey = 'bible-study-edited-slide-' + currentStudyIndex + '-' + currentSlideIndex;
+      localStorage.setItem(hKey, el.slideContent.innerHTML);
+    } catch(e) {}
+  });
+
+  // ========== HIGHLIGHTER — simple ON/OFF toggle ==========
+  // Wraps a range in a highlight mark, links it if it looks like a verse
+  // reference, and persists the change. Shared by the mouse-drag flow
+  // (highlighter mode active) and the "select first, then press H" flow.
+  function applyHighlightToRange(range) {
+    var mark = document.createElement('mark');
+    mark.className = 'highlight-permanent';
+    try {
+      range.surroundContents(mark);
+    } catch (err) {
+      var fragment = range.extractContents();
+      mark.appendChild(fragment);
+      range.insertNode(mark);
+    }
+    tryLinkifyVerseReference(mark);
+    try {
+      var hKey = 'bible-study-edited-slide-' + currentStudyIndex + '-' + currentSlideIndex;
+      localStorage.setItem(hKey, el.slideContent.innerHTML);
+    } catch(e) {}
+    return mark;
+  }
+
+  function toggleHighlighter() {
+    // Already have a selection (made the normal way, without entering
+    // highlighter mode first)? Highlight it now instead of toggling the mode.
+    var sel = window.getSelection();
+    if (sel && !sel.isCollapsed && sel.rangeCount > 0) {
+      var range = sel.getRangeAt(0);
+      if (range && !range.collapsed && el.slideContent.contains(range.commonAncestorContainer)) {
+        applyHighlightToRange(range);
+        sel.removeAllRanges();
+        return;
+      }
+    }
+    isHighlighterActive = !isHighlighterActive;
+    var indicator = document.getElementById('highlighter-indicator');
+    el.slideContainer.classList.toggle('highlighter-mode', isHighlighterActive);
+    if (indicator) indicator.classList.toggle('active', isHighlighterActive);
+  }
+
+  function handleHighlighterClick(e) {
+    if (!isHighlighterActive) return;
+    var sel = window.getSelection();
+    if (!sel || sel.isCollapsed || sel.rangeCount === 0) return;
+
+    var range = sel.getRangeAt(0);
+    if (!range || range.collapsed) return;
+
+    // Only highlight text within slideContent
+    if (!el.slideContent.contains(range.commonAncestorContainer)) return;
+
+    applyHighlightToRange(range);
+    sel.removeAllRanges();
+  }
+
+  // ========== VERSE REFERENCE LINKS (from highlighted text) ==========
+  // Common book-name abbreviations, normalized (lowercase, no spaces/periods) → canonical name.
+  var BIBLE_BOOK_ALIASES = {
+    'genesis':'Genesis','gen':'Genesis','ge':'Genesis','gn':'Genesis',
+    'exodus':'Exodus','exod':'Exodus','exo':'Exodus','ex':'Exodus',
+    'leviticus':'Leviticus','lev':'Leviticus','le':'Leviticus','lv':'Leviticus',
+    'numbers':'Numbers','num':'Numbers','nu':'Numbers','nm':'Numbers',
+    'deuteronomy':'Deuteronomy','deut':'Deuteronomy','deu':'Deuteronomy','dt':'Deuteronomy',
+    'joshua':'Joshua','josh':'Joshua','jos':'Joshua',
+    'judges':'Judges','judg':'Judges','jdg':'Judges',
+    'ruth':'Ruth','ru':'Ruth',
+    '1samuel':'1 Samuel','1sam':'1 Samuel','1sa':'1 Samuel','1s':'1 Samuel',
+    '2samuel':'2 Samuel','2sam':'2 Samuel','2sa':'2 Samuel','2s':'2 Samuel',
+    '1kings':'1 Kings','1kgs':'1 Kings','1ki':'1 Kings','1k':'1 Kings',
+    '2kings':'2 Kings','2kgs':'2 Kings','2ki':'2 Kings','2k':'2 Kings',
+    '1chronicles':'1 Chronicles','1chron':'1 Chronicles','1chro':'1 Chronicles','1chr':'1 Chronicles','1ch':'1 Chronicles',
+    '2chronicles':'2 Chronicles','2chron':'2 Chronicles','2chro':'2 Chronicles','2chr':'2 Chronicles','2ch':'2 Chronicles',
+    'ezra':'Ezra','ezr':'Ezra',
+    'nehemiah':'Nehemiah','neh':'Nehemiah',
+    'esther':'Esther','esth':'Esther','est':'Esther',
+    'job':'Job',
+    'psalms':'Psalms','psalm':'Psalms','ps':'Psalms','psa':'Psalms','pss':'Psalms',
+    'proverbs':'Proverbs','prov':'Proverbs','pro':'Proverbs','pr':'Proverbs',
+    'ecclesiastes':'Ecclesiastes','eccles':'Ecclesiastes','eccl':'Ecclesiastes','ecc':'Ecclesiastes',
+    'songofsolomon':'Song of Solomon','song':'Song of Solomon','sos':'Song of Solomon','songofsongs':'Song of Solomon',
+    'isaiah':'Isaiah','isa':'Isaiah',
+    'jeremiah':'Jeremiah','jer':'Jeremiah',
+    'lamentations':'Lamentations','lam':'Lamentations',
+    'ezekiel':'Ezekiel','ezek':'Ezekiel','eze':'Ezekiel',
+    'daniel':'Daniel','dan':'Daniel',
+    'hosea':'Hosea','hos':'Hosea',
+    'joel':'Joel',
+    'amos':'Amos',
+    'obadiah':'Obadiah','obad':'Obadiah','oba':'Obadiah',
+    'jonah':'Jonah','jon':'Jonah',
+    'micah':'Micah','mic':'Micah',
+    'nahum':'Nahum','nah':'Nahum',
+    'habakkuk':'Habakkuk','hab':'Habakkuk',
+    'zephaniah':'Zephaniah','zeph':'Zephaniah','zep':'Zephaniah',
+    'haggai':'Haggai','hag':'Haggai',
+    'zechariah':'Zechariah','zech':'Zechariah','zec':'Zechariah',
+    'malachi':'Malachi','mal':'Malachi',
+    'matthew':'Matthew','matt':'Matthew','mt':'Matthew',
+    'mark':'Mark','mk':'Mark','mrk':'Mark',
+    'luke':'Luke','lk':'Luke',
+    'john':'John','jn':'John','jhn':'John',
+    'acts':'Acts','act':'Acts',
+    'romans':'Romans','rom':'Romans','ro':'Romans',
+    '1corinthians':'1 Corinthians','1cor':'1 Corinthians','1co':'1 Corinthians',
+    '2corinthians':'2 Corinthians','2cor':'2 Corinthians','2co':'2 Corinthians',
+    'galatians':'Galatians','gal':'Galatians',
+    'ephesians':'Ephesians','eph':'Ephesians',
+    'philippians':'Philippians','phil':'Philippians','php':'Philippians',
+    'colossians':'Colossians','col':'Colossians',
+    '1thessalonians':'1 Thessalonians','1thess':'1 Thessalonians','1thes':'1 Thessalonians','1th':'1 Thessalonians',
+    '2thessalonians':'2 Thessalonians','2thess':'2 Thessalonians','2thes':'2 Thessalonians','2th':'2 Thessalonians',
+    '1timothy':'1 Timothy','1tim':'1 Timothy','1ti':'1 Timothy',
+    '2timothy':'2 Timothy','2tim':'2 Timothy','2ti':'2 Timothy',
+    'titus':'Titus','tit':'Titus',
+    'philemon':'Philemon','philem':'Philemon','phlm':'Philemon',
+    'hebrews':'Hebrews','heb':'Hebrews',
+    'james':'James','jas':'James','jms':'James',
+    '1peter':'1 Peter','1pet':'1 Peter','1pt':'1 Peter','1pe':'1 Peter',
+    '2peter':'2 Peter','2pet':'2 Peter','2pt':'2 Peter','2pe':'2 Peter',
+    '1john':'1 John','1jn':'1 John','1jo':'1 John',
+    '2john':'2 John','2jn':'2 John','2jo':'2 John',
+    '3john':'3 John','3jn':'3 John','3jo':'3 John',
+    'jude':'Jude',
+    'revelation':'Revelation','revelations':'Revelation','rev':'Revelation'
+  };
+
+  function normalizeBookKey(s) {
+    return s.toLowerCase().replace(/[.\s]/g, '');
+  }
+
+  // Parses highlighted text as a Bible reference. Returns:
+  //  { complete: true, ref: "1 Chronicles 6:15" } — fully qualified, ready to link
+  //  { complete: false, kind: 'chapter-verse'|'verse-only', display: "6:15" } — missing book (and maybe chapter)
+  //  null — doesn't look like a reference at all
+  function parseVerseReference(text) {
+    text = (text || '').trim();
+    if (!text) return null;
+
+    var fullMatch = text.match(/^((?:[1-3]\s*)?[A-Za-z][A-Za-z]+(?:\s+[A-Za-z]+){0,2})\.?\s+(\d{1,3})\s*:\s*(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?$/);
+    if (fullMatch) {
+      var bookName = BIBLE_BOOK_ALIASES[normalizeBookKey(fullMatch[1])];
+      if (!bookName) return null; // book-like prefix present but not recognized
+      var ref = bookName + ' ' + fullMatch[2] + ':' + fullMatch[3] + (fullMatch[4] ? '-' + fullMatch[4] : '');
+      return { complete: true, ref: ref };
+    }
+
+    var cvMatch = text.match(/^(\d{1,3})\s*:\s*(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?$/);
+    if (cvMatch) {
+      return { complete: false, kind: 'chapter-verse', display: cvMatch[1] + ':' + cvMatch[2] + (cvMatch[3] ? '-' + cvMatch[3] : '') };
+    }
+
+    var vMatch = text.match(/^(?:vv?|verses?)\.?\s*(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?$/i);
+    if (vMatch) {
+      return { complete: false, kind: 'verse-only', display: vMatch[1] + (vMatch[2] ? '-' + vMatch[2] : '') };
+    }
+
+    return null;
+  }
+
+  function applyVerseRefLink(mark, ref) {
+    mark.classList.add('verse-ref-link');
+    mark.dataset.ref = ref;
+    mark.title = ref + ' — click: Reader · Shift+click: Bible · hold: edit';
+    try {
+      var hKey = 'bible-study-edited-slide-' + currentStudyIndex + '-' + currentSlideIndex;
+      localStorage.setItem(hKey, el.slideContent.innerHTML);
+    } catch(e) {}
+  }
+
+  // Hold a verse-ref-link to correct its reference (e.g. it was mis-detected,
+  // or the passage changed) without having to delete and re-highlight it.
+  function editVerseRefLink(link) {
+    var answer = window.prompt('Edit the reference for "' + link.textContent.trim() + '":', link.dataset.ref);
+    if (!answer || !answer.trim()) return; // cancelled — leave unchanged
+    var full = parseVerseReference(answer.trim());
+    applyVerseRefLink(link, (full && full.complete) ? full.ref : answer.trim());
+  }
+
+  function tryLinkifyVerseReference(mark) {
+    var text = (mark.textContent || '').trim();
+    var parsed = parseVerseReference(text);
+    if (!parsed) return; // ordinary highlight, not reference-shaped
+    if (parsed.complete) {
+      applyVerseRefLink(mark, parsed.ref);
+      return;
+    }
+    var hint = parsed.kind === 'chapter-verse'
+      ? 'e.g. "1 Chronicles ' + parsed.display + '"'
+      : 'e.g. "1 Chronicles 6:' + parsed.display + '"';
+    var answer = window.prompt('"' + text + '" looks like a partial Bible reference — what\'s the full reference?\n' + hint, '');
+    if (!answer || !answer.trim()) return; // left as a plain highlight
+    var full = parseVerseReference(answer.trim());
+    applyVerseRefLink(mark, (full && full.complete) ? full.ref : answer.trim());
+  }
+
+  // Click → Verse Reader (split). Shift+click → Bible, full screen.
+  // Hold (500ms) → edit the reference. Removal is right-click (a separate
+  // button entirely), so none of these race against each other.
+  var VERSE_LINK_LONG_PRESS_MS = 500;
+  var verseLinkPressTimer = null;
+  var verseLinkLongPressed = false;
+
+  function verseLinkPressStart(link) {
+    verseLinkLongPressed = false;
+    clearTimeout(verseLinkPressTimer);
+    verseLinkPressTimer = setTimeout(function() {
+      verseLinkLongPressed = true;
+      editVerseRefLink(link);
+    }, VERSE_LINK_LONG_PRESS_MS);
+  }
+  function verseLinkPressEnd(link, shiftKey) {
+    clearTimeout(verseLinkPressTimer);
+    if (!link || verseLinkLongPressed) return;
+    if (shiftKey) {
+      openBibleWithUrl('https://literalword.com/esv/?q=' + encodeURIComponent(link.dataset.ref));
+    } else {
+      openReaderWithPassage(link.dataset.ref);
+    }
+  }
+  document.addEventListener('mousedown', function(e) {
+    var link = e.target.closest('.verse-ref-link');
+    if (!link) return;
+    if (!isHighlighterActive) e.preventDefault(); // avoid an accidental text-selection drag
+    verseLinkPressStart(link);
+  });
+  document.addEventListener('mouseup', function(e) {
+    verseLinkPressEnd(e.target.closest('.verse-ref-link'), e.shiftKey);
+  });
+  document.addEventListener('touchstart', function(e) {
+    var link = e.target.closest('.verse-ref-link');
+    if (!link) return;
+    verseLinkPressStart(link);
+  }, { passive: true });
+  document.addEventListener('touchend', function(e) {
+    verseLinkPressEnd(e.target.closest('.verse-ref-link'), e.shiftKey);
+  });
+
+  // ========== THEME ==========
+  var THEMES = ['dawn', 'olive', 'nord', 'sakura', 'indigo', 'terracotta', 'juniper'];
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('bible-study-theme', theme);
+    try { localStorage.setItem('leader-notes-theme', theme); } catch(e) {}
+    var sel = document.getElementById('themeSelect');
+    if (sel) sel.value = theme;
+    var lbl = document.getElementById('themeSelectLabel');
+    if (lbl && sel && sel.selectedIndex >= 0) {
+      // Collapsed control shows only the option's leading emoji
+      lbl.textContent = sel.options[sel.selectedIndex].text.trim().split(' ')[0];
+    }
+  }
+
+  function toggleTheme() {
+    var html = document.documentElement;
+    var current = html.getAttribute('data-theme') || 'dawn';
+    var idx = THEMES.indexOf(current);
+    var next = THEMES[(idx + 1) % THEMES.length];
+    setTheme(next);
+    el.slideContainer.classList.remove('slide-enter');
+    void el.slideContainer.offsetWidth;
+    el.slideContainer.classList.add('slide-enter');
+  }
+
+  function loadTheme() {
+    var saved = localStorage.getItem('bible-study-theme');
+    var theme = saved && THEMES.indexOf(saved) !== -1 ? saved : 'dawn';
+    setTheme(theme);
+  }
+  function openLeaderNotes() {
+    // If window is still open, just focus it and refresh
+    if (leaderNotesWindow && !leaderNotesWindow.closed) {
+      leaderNotesWindow.focus();
+      return;
+    }
+
+    // Get clean slide content — at the table of contents before any study
+    // has been opened this session, there's no current slide yet, so default
+    // to the first study's first slide so L still works there.
+    var slide = currentSlides[currentSlideIndex];
+    if (!slide && isInToc && studies.length) {
+      currentStudyIndex = 0;
+      currentSlides = studies[0].slides;
+      currentSlideIndex = 0;
+      slide = currentSlides[currentSlideIndex];
+    }
+    if (!slide) return;
+    var slideText = _cleanSlideText(slide);
+
+    var studyIdx = currentStudyIndex;
+    var notesKey = 'leader-notes-' + studyIdx;
+    var studyTitle = (studies[studyIdx] && studies[studyIdx].title) || 'Study ' + (studyIdx + 1);
+
+    // Load saved notes
+    var savedNotes = '';
+    try { savedNotes = localStorage.getItem(notesKey) || ''; } catch(e) {}
+
+    // Build self-contained popup HTML
+    var currentTheme = document.documentElement.getAttribute('data-theme') || 'dawn';
+    var popupHtml = '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Leader Notes</title>';
+    popupHtml += '<style>';
+    popupHtml += ':root{--ln-bg:#1a1a2e;--ln-text:#e0e0e0;--ln-slide-bg:#16213e;--ln-toolbar-bg:#0f3460;--ln-accent:#e94560;--ln-border:#333;--ln-muted:#b0b0b0}';
+    popupHtml += '*{margin:0;padding:0;box-sizing:border-box}';
+    popupHtml += 'body{background:var(--ln-bg);color:var(--ln-text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}';
+    popupHtml += '.slide-area{flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:0.8rem 1.5rem;border-bottom:1px solid var(--ln-border);background:var(--ln-slide-bg);min-height:80px;position:relative;overflow-y:auto}';
+    popupHtml += '.slide-text{font-size:1.2rem;line-height:1.6;text-align:center;max-width:85%}';
+    popupHtml += '.notes-area{flex:2;display:flex;flex-direction:column;min-height:0}';
+    popupHtml += '.toolbar{display:flex;gap:3px;padding:0.4rem 0.75rem;background:var(--ln-toolbar-bg);border-bottom:1px solid var(--ln-border);flex-shrink:0;flex-wrap:wrap}';
+    popupHtml += '.toolbar button{background:none;border:1px solid transparent;color:var(--ln-text);width:30px;height:28px;border-radius:4px;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center}';
+    popupHtml += '.toolbar button:hover{background:rgba(255,255,255,0.1);border-color:#555}';
+    popupHtml += '.toolbar button:active{background:var(--ln-accent);color:#fff}';
+    popupHtml += '.toolbar .sep{width:1px;height:20px;background:#444;margin:0 4px;align-self:center}';
+    popupHtml += '.toolbar .save-btn{background:var(--ln-accent);color:#fff;border-color:var(--ln-accent);width:auto;padding:0 8px;font-size:0.75rem}';
+    popupHtml += '.editor{flex:1;padding:1rem 1.5rem;font-size:1rem;line-height:1.7;outline:none;overflow-y:auto;background:var(--ln-bg);color:var(--ln-text)}';
+    popupHtml += '.ln-reminder{font-size:0.7rem;line-height:1.4;color:var(--ln-muted);padding:0.4rem 1.5rem;background:var(--ln-toolbar-bg);border-bottom:1px solid var(--ln-border);flex-shrink:0}';
+    popupHtml += '</style></head><body>';
+    popupHtml += '<div class="slide-area" id="slideArea">';
+    popupHtml += '<div class="slide-text" id="slideText">' + escapeHtml(slideText) + '</div>';
+    popupHtml += '</div>';
+    popupHtml += '<div class="toolbar">';
+    popupHtml += '<button data-cmd="bold" title="Bold"><b>B</b></button>';
+    popupHtml += '<button data-cmd="italic" title="Italic"><i>I</i></button>';
+    popupHtml += '<button data-cmd="underline" title="Underline"><u>U</u></button>';
+    popupHtml += '<button data-cmd="insertUnorderedList" title="Bullet list">•</button>';
+    popupHtml += '<span class="sep"></span>';
+    popupHtml += '<button class="save-btn" id="saveBtn" title="Save as .txt">💾 .txt</button>';
+    popupHtml += '</div>';
+    popupHtml += '<div class="ln-reminder">⚠️ Leader notes are only saved to this browser\'s local storage — opening this deck on another browser or computer will not show them. Use 💾 .txt to save a copy if you need it elsewhere.</div>';
+    popupHtml += '<div class="editor" id="editor" contenteditable="true">' + savedNotes + '</div>';
+    popupHtml += '<script>';
+    popupHtml += 'var editor=document.getElementById("editor");var slideArea=document.getElementById("slideArea");var slideText=document.getElementById("slideText");';
+    popupHtml += 'var currentKey="' + notesKey + '";';
+    popupHtml += 'editor.focus();';
+    popupHtml += 'var safeTitle="' + studyTitle.replace(/"/g, '').replace(/'/g, '') + '";';
+    popupHtml += 'var sf=function(s){return s.replace(/[\\\\/:*?"<>|]/g," ").replace(/\\s+/g," ").trim();};';
+    popupHtml += 'var downloadName=sf(safeTitle)+" (Leader Notes).txt";';
+    // Toolbar: handle execCommand + quote special case
+    popupHtml += 'document.querySelectorAll(".toolbar button[data-cmd]").forEach(function(b){b.addEventListener("click",function(){document.execCommand(this.dataset.cmd,false,null);editor.focus()})});';
+    // Auto-save to localStorage
+    popupHtml += 'var debounce=null;';
+    popupHtml += 'editor.addEventListener("input",function(){if(debounce)clearTimeout(debounce);debounce=setTimeout(function(){try{localStorage.setItem(currentKey,editor.innerHTML)}catch(e){}},300)});';
+    // Save as .txt button
+    popupHtml += 'document.getElementById("saveBtn").addEventListener("click",function(){';
+    popupHtml += 'var txt=editor.innerText||editor.textContent||"";';
+    popupHtml += 'var blob=new Blob([txt],{type:"text/plain"});var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=downloadName;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(a.href);';
+    popupHtml += '});';
+    // Listen for question updates from main deck
+    popupHtml += 'window.addEventListener("storage",function(e){if(e.key==="leader-notes-update"){try{var d=JSON.parse(e.newValue);slideText.textContent=d.text;slideArea.scrollTop=0;}catch(ex){}}else if(e.key==="leader-notes-theme"){try{applyPopupTheme(e.newValue)}catch(ex){}}});';
+    // Theme application function for popup
+    popupHtml += 'var LN_THEMES={dawn:{bg:"#f5f3ef",text:"#1a1a1a",slide:"#ffffff",toolbar:"#ece8e0",accent:"#b8860b",border:"#d4d0c8",muted:"#6b6b6b"},olive:{bg:"#f4f6ec",text:"#23281b",slide:"#ffffff",toolbar:"#eaeedd",accent:"#5f7a3d",border:"#d8dfc6",muted:"#6f7a5e"},nord:{bg:"#2e3440",text:"#eceff4",slide:"#3b4252",toolbar:"#252933",accent:"#88c0d0",border:"#4c566a",muted:"#d8dee9"},sakura:{bg:"#fdf5f6",text:"#2d1b1e",slide:"#ffffff",toolbar:"#fceeef",accent:"#d4818c",border:"#e8d0d4",muted:"#8b6f73"},indigo:{bg:"#0e0b22",text:"#ece8f7",slide:"#1b1640",toolbar:"#0a0819",accent:"#d9a954",border:"#2e2659",muted:"#a79ccb"},terracotta:{bg:"#fbf1e4",text:"#3d281b",slide:"#fffdfa",toolbar:"#f1e0c8",accent:"#b8582f",border:"#e6cdb1",muted:"#8a6a55"},juniper:{bg:"#0d1a14",text:"#e7f0e3",slide:"#152a1f",toolbar:"#0a1510",accent:"#d4c38a",border:"#26402f",muted:"#91a993"}};';
+    popupHtml += 'function applyPopupTheme(t){var c=LN_THEMES[t];if(!c)return;var r=document.documentElement.style;r.setProperty("--ln-bg",c.bg);r.setProperty("--ln-text",c.text);r.setProperty("--ln-slide-bg",c.slide);r.setProperty("--ln-toolbar-bg",c.toolbar);r.setProperty("--ln-accent",c.accent);r.setProperty("--ln-border",c.border);r.setProperty("--ln-muted",c.muted);document.documentElement.setAttribute("data-theme",t);}';
+    // Apply saved theme immediately to the popup
+    popupHtml += 'var savedTheme=localStorage.getItem(\"leader-notes-theme\")||localStorage.getItem(\"bible-study-theme\")||"dawn";';
+    popupHtml += 'applyPopupTheme(savedTheme);';
+    // Prev/Next via localStorage
+    popupHtml += 'function navTo(dir){try{localStorage.setItem("leader-notes-cmd",JSON.stringify({action:dir}))}catch(e){}}';
+    popupHtml += 'document.addEventListener("keydown",function(e){if(e.target===editor||e.target===slideArea)return;if(e.key==="ArrowLeft"){navTo("prevSlide")}if(e.key==="ArrowRight"){navTo("nextSlide")}});';
+    popupHtml += '<' + '/script>';
+    popupHtml += '</body></html>';
+
+    leaderNotesWindow = window.open('about:blank', 'leaderNotes', 'width=900,height=700,scrollbars=yes,resizable=yes');
+    if (!leaderNotesWindow) {
+      alert('Please allow popups for this site to use Leader Notes.');
+    } else {
+      leaderNotesWindow.document.open();
+      leaderNotesWindow.document.write(popupHtml);
+      leaderNotesWindow.document.close();
+    }
+  }
+
+  function _cleanSlideText(slide) {
+    if (!slide) return '';
+    if (slide.type === 'bible-read') return '📖 ' + (slide.passage || '');
+    var div = document.createElement('div');
+    div.innerHTML = slide.content;
+    return div.textContent || div.innerText || slide.content;
+  }
+
+  // Listen for nav commands from the leader notes popup (via localStorage)
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'leader-notes-cmd') {
+      try {
+        var cmd = JSON.parse(e.newValue);
+        if (cmd.action === 'nextSlide') { if (!isInToc) { nextSlide(); pushSlideUpdateToPopup(); } }
+        else if (cmd.action === 'prevSlide') { if (!isInToc) { prevSlide(); pushSlideUpdateToPopup(); } }
+      } catch(ex) {}
+    }
+  });
+
+  // Write current slide info to localStorage so the popup updates
+  function pushSlideUpdateToPopup() {
+    var slide = currentSlides[currentSlideIndex];
+    if (!slide) return;
+    var slideText = '';
+    if (slide.type === 'question' || slide.type === 'implications-questions') {
+      var div = document.createElement('div');
+      div.innerHTML = slide.content;
+      slideText = div.textContent || div.innerText || slide.content;
+    } else {
+      slideText = '-';
+    }
+    try {
+      localStorage.setItem('leader-notes-update', JSON.stringify({
+        text: slideText,
+        si: currentStudyIndex,
+        sli: currentSlideIndex,
+        t: Date.now()
+      }));
+    } catch(e) {}
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ========== KEYBOARD ==========
+  function onKeyDown(e) {
+    // Skip if typing in an input — BUT allow Esc through
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+      if (e.key === 'Escape') {
+        if (isSettingsOpen) { closeSettings(); return; }
+        if (isNotesOpen) { closeNotes(); return; }
+        if (isReaderOpen) { if (isReaderFullscreen) toggleReaderFullscreen(); else toggleReaderPanel(); return; }
+      }
+      return;
+    }
+
+    // Settings open: only Esc works (close settings)
+    if (isSettingsOpen) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeSettings();
+      }
+      return;
+    }
+
+    // Notes open: only Esc works (close notes)
+    if (isNotesOpen) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeNotes();
+      }
+      return;
+    }
+
+    // Stop keyboard shortcuts when scratchpad is open
+    if (isScratchpadOpen) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        toggleScratchpad();
+      }
+      return;
+    }
+
+    // Timer overlay: Esc closes overlay but keeps timer running
+    var timerOverlay = document.getElementById('timer-overlay');
+    if (timerOverlay.classList.contains('active')) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        timerOverlay.classList.remove('active');
+      }
+      return;
+    }
+
+    // In edit mode, only Esc works (exit edit mode)
+    if (isEditMode) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        toggleEditMode();
+      }
+      return;
+    }
+
+    // Bible panel open: Esc steps back (full screen → split → closed). Other
+    // shortcuts still fall through to the switch below, same as the Reader.
+    if (isSplitBibleOpen) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        if (isSplitBibleFullscreen) toggleSplitBibleFullscreen(); else toggleSplitBible();
+        return;
+      }
+    }
+
+    // Reader panel open: Left/Right/Space page through the reading slideshow.
+    // Other shortcuts (S, R, T, etc.) still fall through to the switch below,
+    // same as while the Bible split (S) is open.
+    if (isReaderOpen) {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); readerNextPage(); return; }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); readerPrevPage(); return; }
+      if (e.key === 'Escape') { e.preventDefault(); if (isReaderFullscreen) toggleReaderFullscreen(); else toggleReaderPanel(); return; }
+    }
+
+    switch (e.key) {
+      case 'ArrowRight':
+      case ' ':
+        if (isInToc) return;
+        e.preventDefault();
+        nextSlide();
+        break;
+      case 'ArrowLeft':
+        if (isInToc) return;
+        e.preventDefault();
+        prevSlide();
+        break;
+      case 'Home':
+      case 'Escape':
+        if (isHelpOpen) {
+          closeHelp();
+          return;
+        }
+        if (isNotesOpen) {
+          closeNotes();
+          return;
+        }
+        e.preventDefault();
+        goToToc();
+        break;
+      case 't':
+      case 'T':
+        e.preventDefault();
+        toggleTheme();
+        break;
+      case 'b':
+      case 'B':
+        e.preventDefault();
+        if (e.shiftKey) {
+          if (!isSplitBibleOpen) toggleSplitBible();
+          toggleSplitBibleFullscreen();
+        } else {
+          toggleSplitBible();
+        }
+        break;
+      case 'r':
+      case 'R':
+        e.preventDefault();
+        if (e.shiftKey) {
+          if (!isReaderOpen) toggleReaderPanel();
+          toggleReaderFullscreen();
+        } else {
+          toggleReaderPanel();
+        }
+        break;
+      case 'h':
+      case 'H':
+        e.preventDefault();
+        toggleHighlighter();
+        break;
+      case 'n':
+      case 'N':
+        e.preventDefault();
+        toggleNotes();
+        break;
+      case 'p':
+      case 'P':
+        e.preventDefault();
+        toggleScratchpad();
+        break;
+      case 'e':
+      case 'E':
+        e.preventDefault();
+        toggleEditMode();
+        break;
+      case 'l':
+      case 'L':
+        e.preventDefault();
+        openLeaderNotes();
+        break;
+      case '?':
+        e.preventDefault();
+        toggleHelp();
+        break;
+    }
+  }
+
+  // ========== CLICK NAVIGATION (RESTRICTED TO ARROWS ONLY) ==========
+  el.navPrev.addEventListener('click', function(e) { e.stopPropagation(); if (!isInToc) prevSlide(); });
+  el.navNext.addEventListener('click', function(e) { e.stopPropagation(); if (!isInToc) nextSlide(); });
+  el.backBtn.addEventListener('click', goToToc);
+    el.editBtn = document.getElementById('editBtn');
+    if (el.editBtn) el.editBtn.addEventListener('click', toggleEditMode);
+    document.getElementById('scratchpadBtn').addEventListener('click', toggleScratchpad);
+    document.getElementById('themeSelect').addEventListener('change', function() {});
+
+  // Set PDF link — only works if a PDF of the exact same name sits next to
+  // this HTML file (see generate_deck.py, which copies it there automatically).
+  // Shown disabled rather than hidden when missing, so the feature stays discoverable.
+  if (PDF_URL) {
+    el.pdfLink.href = PDF_URL;
+    el.pdfLink.title = 'Open original PDF';
+  } else {
+    el.pdfLink.classList.add('disabled');
+    el.pdfLink.removeAttribute('href');
+    el.pdfLink.title = 'Original PDF not found — it must have the same name as this file and sit in the same folder';
+  }
+
+  // ========== TOUCH SUPPORT ==========
+  var touchStartX = 0;
+  var touchStartY = 0;
+  el.slideContainer.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+  el.slideContainer.addEventListener('touchend', function(e) {
+    if (isInToc) return;
+    var dx = e.changedTouches[0].screenX - touchStartX;
+    var dy = e.changedTouches[0].screenY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) nextSlide();
+      else prevSlide();
+    }
+  }, { passive: true });
+
+  // ========== HIGHLIGHTER MOUSEDOWN HANDLER ==========
+  // Highlight mode: allow selection, then highlight on mouseup
+  el.slideContent.addEventListener('mouseup', function(e) {
+    if (isHighlighterActive) {
+      handleHighlighterClick(e);
+    }
+  });
+
+  // ========== THEME SELECT CHANGE ==========
+  document.getElementById('themeSelect').addEventListener('change', function() {
+    setTheme(this.value);
+  });
+
+  // ========== INIT ==========
+  document.addEventListener('keydown', onKeyDown);
+  loadTheme();
+  loadReaderFontSize();
+  loadSlideFontSize();
+  loadReaderVersion();
+  // Pre-load Bible iframe with last URL from localStorage
+  try {
+    var savedBibleUrl = localStorage.getItem('bible-study-last-url');
+    if (savedBibleUrl) {
+      lastBibleUrl = savedBibleUrl;
+    }
+  } catch(e) {}
+  loadData();
+})();
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bible Study Deck Generator</title>
+<link rel="stylesheet" href="style.css">
+<script src="pdf.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>📖 Bible Study Deck Generator</h1>
+    <p class="tagline">Turn a Bible-study PDF into a self-contained presentation deck — right in your browser, nothing uploaded anywhere.</p>
+  </header>
+
+  <main>
+    <section id="dropzone" class="dropzone" tabindex="0">
+      <p class="dropzone-text">Drop a PDF here, or click to choose a file</p>
+      <input type="file" id="fileInput" accept="application/pdf" hidden>
+    </section>
+
+    <p id="status" class="status"></p>
+
+    <section id="summary" class="summary" hidden></section>
+
+    <section id="downloads" class="downloads" hidden>
+      <button id="downloadHtml" type="button" class="btn btn-primary">Download HTML</button>
+      <button id="downloadPdf" type="button" class="btn">Download PDF</button>
+      <p class="downloads-hint">Save both files into the same folder with these exact names — the deck's "Open original PDF" button only works when they match.</p>
+    </section>
+
+    <section id="previewWrap" class="preview-wrap" hidden>
+      <h2>Live preview</h2>
+      <iframe id="preview" class="preview-frame" title="Deck preview"></iframe>
+    </section>
+
+    <section class="about">
+      <h2>About</h2>
+      <p>This runs the same parsing logic as the <code>generate_deck.py</code> command-line tool, ported to JavaScript so it can run entirely client-side on GitHub Pages. Nothing you upload leaves your browser.</p>
+      <p>Prefer the command line? See <code>scripts/generate_deck.py</code> in this repository.</p>
+      <p class="version">Bible Study Deck Generator · version 1.0.0 · MIT License</p>
+    </section>
+  </main>
+
+  <script src="pdf-extract.js?v=1.0.2"></script>
+  <script src="parser.js?v=1.0.2"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
+  </script>
+  <script src="app.js?v=1.0.2"></script>
+</body>
+</html>

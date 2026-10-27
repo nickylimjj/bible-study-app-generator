@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interactive HTML App for Bible Studies</title>
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 7c-1.7-1.3-4-1.7-6-1.1v11c2-0.6 4.3-0.2 6 1.1"/>
+          <path d="M12 7c1.7-1.3 4-1.7 6-1.1v11c-2-0.6-4.3-0.2-6 1.1"/>
+          <line x1="12" y1="7" x2="12" y2="18.1"/>
+        </svg>
+      </span>
+      <h1>Interactive HTML App for Bible Studies</h1>
+    </div>
+    <p class="tagline">Turns a compatible PDF containing Bible studies into an interactive HTML application you can present from any browser.</p>
+  </header>
+
+  <main>
+    {% if error %}
+    <div class="error-box">{{ error }}</div>
+    {% endif %}
+
+    <form class="dropzone" id="dropzone" action="{{ url_for('generate') }}" method="post" enctype="multipart/form-data">
+      <span class="dropzone-icon-badge">
+        <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 16V4"/>
+          <path d="M7 9l5-5 5 5"/>
+          <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>
+        </svg>
+      </span>
+      <p class="dropzone-text" id="dropzoneText">Drop a PDF here, or click to choose a file</p>
+      <input type="file" name="pdf" id="fileInput" accept="application/pdf" required hidden>
+      <p style="margin-top:1.5rem;"><button type="submit" class="btn btn-primary">Generate Deck</button></p>
+    </form>
+
+    <p class="try-sample">New here? <a href="#tutorial">See a sample deck &amp; tutorial ↓</a></p>
+
+    <div class="how-it-works">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <p>Upload your Bible study PDF</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <p>PDF file gets converted to HTML app</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <p>Preview, download, and present</p>
+      </div>
+    </div>
+
+    <section class="about">
+      <h2>About</h2>
+      <p>Upload your Bible study PDF and get back an interactive slide deck — complete with navigation, a Bible reader, and space for leader notes — ready to present straight from your browser.</p>
+      <p class="version">Interactive HTML App for Bible Studies · version 1.0.0 · MIT License</p>
+    </section>
+  </main>
+
+  <div class="tutorial-wrap" id="tutorial">
+    <h2>Try the sample deck</h2>
+    <p class="tutorial-intro">This is exactly what a deck generated from your own PDF looks like. Click into the study below, then try a few of the shortcuts underneath — they all work right in the preview.</p>
+    <p class="tutorial-actions"><a class="btn" href="{{ url_for('static', filename='sample-deck.html') }}" target="_blank" rel="noopener">Open sample deck in a new tab ↗</a></p>
+    <iframe class="sample-frame" src="{{ url_for('static', filename='sample-deck.html') }}" title="Sample deck preview"></iframe>
+
+    <h2>Keyboard shortcuts</h2>
+    <p class="tutorial-intro">Once a deck is open, your keyboard drives everything — no mouse needed.</p>
+    <div class="shortcuts-grid">
+      <div class="shortcut-item"><kbd>→</kbd><span>Next slide</span></div>
+      <div class="shortcut-item"><kbd>←</kbd><span>Previous slide</span></div>
+      <div class="shortcut-item"><kbd>Esc</kbd><span>Back to table of contents</span></div>
+      <div class="shortcut-item"><kbd>B</kbd><span>Open Bible (split screen)</span></div>
+      <div class="shortcut-item"><kbd>Shift+B</kbd><span>Bible — full screen</span></div>
+      <div class="shortcut-item"><kbd>R</kbd><span>Verse reader — search &amp; read</span></div>
+      <div class="shortcut-item"><kbd>Shift+R</kbd><span>Verse reader — full screen</span></div>
+      <div class="shortcut-item"><kbd>H</kbd><span>Highlighter (right-click to remove)</span></div>
+      <div class="shortcut-item"><kbd>N</kbd><span>Notes (saved on your device)</span></div>
+      <div class="shortcut-item"><kbd>P</kbd><span>Scratchpad slide</span></div>
+      <div class="shortcut-item"><kbd>E</kbd><span>Edit the current slide</span></div>
+      <div class="shortcut-item"><kbd>L</kbd><span>Leader notes (popup window)</span></div>
+      <div class="shortcut-item"><kbd>T</kbd><span>Switch light / dark theme</span></div>
+      <div class="shortcut-item"><kbd>?</kbd><span>Show this help, any time</span></div>
+    </div>
+
+    <h2>Setting up a Crossway ESV API key</h2>
+    <p class="tutorial-intro">By default, the Bible reader uses free public-domain translations. If you'd rather read and search the ESV, you can add your own free Crossway API key — right from the deck's own ⚙️ Settings button, no file editing needed.</p>
+    <ol class="guide-steps">
+      <li>Go to <a href="https://api.esv.org/account" target="_blank" rel="noopener">api.esv.org/account</a> and sign up for a free account.</li>
+      <li>Create a new application to get your API key (Crossway calls this "requesting an API key" — it's free and instant for personal/non-commercial use).</li>
+      <li>Copy the key it gives you.</li>
+      <li>Open your deck, click the <kbd>⚙️</kbd> Settings button in the top bar, paste your key, and save.</li>
+      <li>The ESV will now show up as a translation option in the Bible reader (<kbd>R</kbd>) and Bible overlay (<kbd>B</kbd>) — your key is remembered on that browser from then on.</li>
+    </ol>
+  </div>
+
+  <script>
+    var dropzone = document.getElementById('dropzone');
+    var fileInput = document.getElementById('fileInput');
+    var dropzoneText = document.getElementById('dropzoneText');
+
+    function showFile(file) {
+      dropzoneText.textContent = file.name;
+      dropzoneText.classList.add('has-file');
+    }
+
+    dropzone.addEventListener('click', function (e) {
+      if (e.target.closest('button')) return;
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function () {
+      if (fileInput.files[0]) showFile(fileInput.files[0]);
+    });
+
+    ['dragenter', 'dragover'].forEach(function (evt) {
+      dropzone.addEventListener(evt, function (e) {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+      });
+    });
+    ['dragleave', 'drop'].forEach(function (evt) {
+      dropzone.addEventListener(evt, function (e) {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+      });
+    });
+    dropzone.addEventListener('drop', function (e) {
+      var file = e.dataTransfer.files && e.dataTransfer.files[0];
+      if (file) {
+        fileInput.files = e.dataTransfer.files;
+        showFile(file);
+      }
+    });
+  </script>
+</body>
+</html>

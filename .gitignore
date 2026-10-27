@@ -1,0 +1,15 @@
+# Real study PDFs used for local testing — copyrighted, not for the public repo
+tests/
+
+# Server-generated per-upload output
+server/generated/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS cruft
+.DS_Store
+Thumbs.db
